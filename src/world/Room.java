@@ -7,7 +7,7 @@ import utils.Vector;
 
 public class Room {
 	
-	public static float SIZE = 10;
+	public static float SIZE = 21;
 	public static float CORRIDOR_SIZE = 2;
 	public static float GET_TOTAL_SIZE () {
 		return SIZE + CORRIDOR_SIZE;
@@ -16,10 +16,15 @@ public class Room {
 		return pos.x >= CORRIDOR_SIZE && pos.x < GET_TOTAL_SIZE()-CORRIDOR_SIZE && pos.y >= CORRIDOR_SIZE && pos.y < GET_TOTAL_SIZE()-CORRIDOR_SIZE;
 	}
 	
-	public int[][] grid;
+	public Integer[][] grid;
+	public Integer difficulty;
+	public String type;
 	
-	public Room () {
-		grid = RoomGenerator.create();
+	public Room (int type) {
+		RoomGenerator room = new RoomGenerator(type,(int)SIZE);
+		this.grid = room.getSurface();
+		this.difficulty = room.getDifficulty();
+		this.type = room.getType();
 	}
 	
 	public boolean isGround (Vector pos) {

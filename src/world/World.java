@@ -4,13 +4,12 @@ import generator.WorldGenerator;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import main.Renderer;
-import mob.Mob;
 import utils.Border;
 import utils.Vector;
 
 public class World {
 	
-	public static float SIZE = 1;
+	public static float SIZE = 5	;
 	public Room[][] rooms;
 	
 	public World () {
