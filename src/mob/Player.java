@@ -1,7 +1,7 @@
 package mob;
 
-import item.Hand;
-import item.Weapon;
+import item.weapon.Spear;
+import item.weapon.Weapon;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
@@ -14,14 +14,14 @@ import utils.Vector;
 public class Player extends Mob {
 	
 	private int[] controls = { 0, 0, 0, 0 };
-	private Weapon weapon;
+	public Weapon weapon;
 
 	public Player(Game game, Vector position) {
-		super(game, "PLAYER", position, new Vector(1, 1), Color.DARKRED, 0.02f);
+		super(game, "PLAYER", position, new Vector(1, 1), Color.DARKRED, 0.02f, 10);
 		game.scene.addEventFilter(KeyEvent.KEY_PRESSED, keyPressedEventHandler);
 		game.scene.addEventFilter(KeyEvent.KEY_RELEASED, keyReleasedEventHandler);
 		
-		weapon = new Hand();
+		weapon = new Spear();
 	}
 	
 	private EventHandler<KeyEvent> keyPressedEventHandler = (event -> {

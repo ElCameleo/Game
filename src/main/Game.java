@@ -2,11 +2,13 @@ package main;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import mob.Dealer;
 import mob.Player;
@@ -26,6 +28,10 @@ public class Game extends Application {
 	public Stage stage;
 	
 	public void setup (GraphicsContext gc) {
+		
+		gc.setTextAlign(TextAlignment.CENTER);
+        gc.setTextBaseline(VPos.CENTER);
+        
 		world = new World();
 		handler = new Handler(this);
 		player = new Player(this, new Vector(4, 4));
@@ -41,6 +47,7 @@ public class Game extends Application {
 		world.render(gc);
 		handler.process(gc);
 		gc.restore();
+		player.weapon.render(gc, 0, 0);
 	}
 
 	
