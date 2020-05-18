@@ -14,5 +14,4 @@ public class WorldGenerator {
 		}
 		return world;
 	}
-
 }

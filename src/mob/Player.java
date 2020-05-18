@@ -1,5 +1,6 @@
 package mob;
 
+import item.potion.Bag;
 import item.weapon.Spear;
 import item.weapon.Weapon;
 import javafx.event.EventHandler;
@@ -15,6 +16,7 @@ public class Player extends Mob {
 	
 	private int[] controls = { 0, 0, 0, 0 };
 	public Weapon weapon;
+	public Bag bag;
 
 	public Player(Game game, Vector position) {
 		super(game, "PLAYER", position, new Vector(1, 1), Color.DARKRED, 0.02f, 10);
@@ -22,6 +24,7 @@ public class Player extends Mob {
 		game.scene.addEventFilter(KeyEvent.KEY_RELEASED, keyReleasedEventHandler);
 		
 		weapon = new Spear();
+		bag = new Bag(game);
 	}
 	
 	private EventHandler<KeyEvent> keyPressedEventHandler = (event -> {

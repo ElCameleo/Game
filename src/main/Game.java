@@ -48,6 +48,7 @@ public class Game extends Application {
 		handler.process(gc);
 		gc.restore();
 		player.weapon.render(gc, 0, 0);
+		player.bag.render(gc);
 	}
 
 	
