@@ -9,30 +9,49 @@ public class WorldGenerator {
 
 	private Integer[][] map;
 	private RoomGenerator[][] etage;
-	private Integer[][] visual;
 
-	private int x;
-	private int y;
+	private int hauteur;
+	private int largeur;
 	
 	public WorldGenerator(int x, int y) {
-		map =  new Integer[x][y];
-		this.x = x;
-		this.y = y;
-		for(int i=0;i<x;i++) {
-			for(int j=0; j<y;j++){
+		hauteur = x;
+		largeur = y;
+		map =  new Integer[hauteur][largeur];
+		
+		int nbSalle = 0;
+		while(nbSalle<(hauteur*largeur)/2) {
+			createMap();
+			nbSalle = 0;
+			for(int i = 0; i<hauteur;i++) {
+				for(int j = 0; j<largeur;j++) {
+					if(map[i][j]!=0) {
+						nbSalle+=1;
+					}
+				}
+			}
+		}
+		
+		createEtage();
+	}
+	
+	private void createMap() {
+			
+		for(int i=0;i<hauteur;i++) {
+			for(int j=0; j<largeur;j++){
 
 				map[i][j] = 0;
 			}
 		}
 		
 		Random r = new Random();		
-		int sx = r.nextInt((int) World.SIZE);
-		int sy = r.nextInt((int) World.SIZE);
+		int startx = r.nextInt((int) World.SIZE);
+		int starty = r.nextInt((int) World.SIZE);
 		int[] premiereSalle = {3,5,6,7,9,10,11,12,13,14,15};
-		map[sx][sy] = premiereSalle[r.nextInt(11)];
-		next(map[sx][sy],sx,sy);
-	}
+		map[startx][starty] = premiereSalle[r.nextInt(11)];
+		next(map[startx][starty],startx,starty);
 		
+
+	}
 	
 	private Integer[] getRooms(int  dirPrecedente) {
 	Integer[] res = {};
@@ -58,7 +77,7 @@ public class WorldGenerator {
 	}
 	
 	
-	private void correctOut(int dir, int x, int y) {
+	private void correct(int dir, int x, int y) {
 
 		int tab[][] = {
 				{ 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14,15},
@@ -91,24 +110,24 @@ public class WorldGenerator {
 		
 	}
 	
-	private void generate(int precedent,int x, int y) {
+	private void generate(int DirectionPrec,int x, int y) {
 		Random r = new Random();	
-		Integer[] l = getRooms(precedent);
-		int v = l[r.nextInt(l.length)];
+		Integer[] sallePossible = getRooms(DirectionPrec);
+		int v = sallePossible[r.nextInt(sallePossible.length)];
 		if(x<0) {
-			correctOut(1,0,y);
+			correct(1,0,y);
 
 		}
-		else if(x>=this.x) {
-			correctOut(3,this.x-1,y);
+		else if(x>=this.hauteur) {
+			correct(3,this.hauteur-1,y);
 
 		}
 		else if(y<0) {
-			correctOut(4,x,0);
+			correct(4,x,0);
 
 		}
-		else if(y>=this.y) {
-			correctOut(2,x,this.y-1);
+		else if(y>=this.largeur) {
+			correct(2,x,this.largeur-1);
 
 		}
 		else if(map[x][y]==0){
@@ -118,22 +137,22 @@ public class WorldGenerator {
 		}
 		else{
 			boolean s = false;
-			for(int i=0;i<l.length;i++) {
-				s = s || map[x][y] == l[i]; 
+			for(int i=0;i<sallePossible.length;i++) {
+				s = s || map[x][y] == sallePossible[i]; 
 			}
 			if(!s){
-				switch(precedent) {
+				switch(DirectionPrec) {
 				case 1:
-					correctOut(3,x-1,y);
+					correct(3,x-1,y);
 				break;
 				case 2:
-					correctOut(4,x,y+1);
+					correct(4,x,y+1);
 				break;
 				case 4:
-					correctOut(2,x,y-1);
+					correct(2,x,y-1);
 				break;
 				case 3:
-					correctOut(1,x+1,y);
+					correct(1,x+1,y);
 				break;
 				}
 
@@ -141,63 +160,37 @@ public class WorldGenerator {
 		} 
 	}
 	
+	private void createEtage() {
+		etage = new RoomGenerator[hauteur][largeur];
+		for(int i=0;i<hauteur;i++) {
+			for(int j=0;j<largeur;j++) {
+				etage[i][j] = new RoomGenerator(map[i][j],(int)Room.SIZE);
+			}
+		}
+	}
+	
 	@Override
 	public String toString() {
-		String s ="";
+		String chaine ="";
 		String car[] = {" ."," ╨"," ╞"," ╚"," ╥"," ║"," ╔"," ╠"," ╡"," ╝"," ═"," ╩"," ╗"," ╣"," ╦"," ╬"};		
 	
-		for(int i=0;i<x;i++) {
-			for(int j=0; j<y;j++){
-				s = s + car[map[i][j]];
+		for(int i=0;i<hauteur;i++) {
+			for(int j=0; j<largeur;j++){
+				chaine = chaine + car[map[i][j]];
 			}
-			s += "\n";
+			chaine += "\n";
 		}
-		return s;
+		return chaine;
 	}
 	
-	public void generateVisual() {
-		etage = new RoomGenerator[x][y];
-		for(int i=0;i<x;i++) {
-			for(int j=0;j<y;j++) {
-//				etage[i][j] = new RoomGenerator(map[i][j]);
-			}
-		}
-		visual = new Integer[x*etage[0][0].getX()][y*etage[0][0].getY()];
-		String s="";
-		for(int i=0;i<this.x;i++) {
-			for(int k=0;k<etage[i][0].getX();k++) {
-				for(int j=0;j<etage[i].length;j++) {
-					for(int m=0;m<etage[i][j].getY();m++) {
-						visual[i*etage[i][0].getX()+k][j*etage[i][0].getY()+m] = etage[i][j].getSurface()[k][m];
-					}
-				}
-				s = s+"\n";
-			}
-		}
-	}
-	
-	public Integer[][] getVisual(){
-		generateVisual();
-		return visual;
-	}
-	
-	public String visualToString() {
-		String s="";
-		generateVisual();
-		for(int i=0;i<visual.length;i++) {
-			for(int j=0;j<visual[0].length;j++) {
-				s = s+ " " + visual[i][j]; 
-	}
-			s = s+ "\n";
-		}
-		return s;
-	}
 	public Integer[][] getMap() {
 		return map;
 	}
+	public RoomGenerator[][] getEtage(){
+		return etage;
+	}
 	
 	public static Room[][] create () {
-		
 		WorldGenerator WG = new WorldGenerator((int) World.SIZE,(int) World.SIZE);
 		System.out.println(WG.toString());
 		int[] depart = {-1,-1};
@@ -205,7 +198,7 @@ public class WorldGenerator {
 		Room[][] world = new Room[(int) World.SIZE][(int) World.SIZE];
 		for (int i = 0 ; i < world.length ; i++) {
 			for (int j = 0 ; j < world.length ; j++) {
-				world[i][j] = new Room(WG.getMap()[i][j]);
+				world[i][j] = new Room(WG.getEtage()[i][j]);
 				if (WG.getMap()[i][j] != 0) {
 					if(depart[0] ==-1) {
 						depart[0] = i;
