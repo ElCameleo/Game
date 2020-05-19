@@ -10,7 +10,7 @@ public class Room {
 	public static float SIZE = 21;
 	public static float CORRIDOR_SIZE = 2;
 	public static float GET_TOTAL_SIZE () {
-		return SIZE + CORRIDOR_SIZE;
+		return SIZE + CORRIDOR_SIZE * 2;
 	}
 	public static boolean IN_ROOM_SPACE (Vector pos) {
 		return pos.x >= CORRIDOR_SIZE && pos.x < GET_TOTAL_SIZE()-CORRIDOR_SIZE && pos.y >= CORRIDOR_SIZE && pos.y < GET_TOTAL_SIZE()-CORRIDOR_SIZE;
