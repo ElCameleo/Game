@@ -20,7 +20,6 @@ public class WorldGenerator {
 		this.y = y;
 		for(int i=0;i<x;i++) {
 			for(int j=0; j<y;j++){
-
 				map[i][j] = 0;
 			}
 		}
@@ -222,5 +221,4 @@ public class WorldGenerator {
 		
 		return world;
 	}
-
 }
