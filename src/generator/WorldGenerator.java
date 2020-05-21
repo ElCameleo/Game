@@ -14,13 +14,6 @@ public class WorldGenerator {
 	private int largeur;
 	
 	public WorldGenerator(int x, int y) {
-<<<<<<< HEAD
-		map =  new Integer[x][y];
-		this.x = x;
-		this.y = y;
-		for(int i=0;i<x;i++) {
-			for(int j=0; j<y;j++){
-=======
 		hauteur = x;
 		largeur = y;
 		map =  new Integer[hauteur][largeur];
@@ -46,7 +39,6 @@ public class WorldGenerator {
 		for(int i=0;i<hauteur;i++) {
 			for(int j=0; j<largeur;j++){
 
->>>>>>> 83e9051bcdcd9f7494bae60b91e48b17b4e75982
 				map[i][j] = 0;
 			}
 		}
@@ -223,4 +215,5 @@ public class WorldGenerator {
 		
 		return world;
 	}
+
 }
