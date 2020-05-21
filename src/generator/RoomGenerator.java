@@ -11,16 +11,16 @@ public class RoomGenerator {
 	private String typeIntersection;
 	private String type;
 	private Integer difficulty;
-	private int x=11;
-	private int y=11;
+	private int hauteur=11;
+	private int largeur=11;
 	
 	public RoomGenerator(int salle,int taille) {
-		x = taille;
-		y = taille;
-		surface = new Integer[x][y];
+		hauteur = taille;
+		largeur = taille;
+		surface = new Integer[hauteur][largeur];
 		this.typeIntersection = binarySalle(salle);
-		for(int i=0; i<x;i++) {
-			for(int j=0;j<y;j++) {
+		for(int i=0; i<hauteur;i++) {
+			for(int j=0;j<largeur;j++) {
 				surface[i][j] = 0;
 			}
 		}
@@ -59,16 +59,29 @@ public class RoomGenerator {
 		return t;
 	}
 	
+	private Integer[][] combine(Integer[][] x,Integer[][] y){
+		int[][] t = {
+				{0, 1, 2},
+				{1, 1, 1},
+				{2, 1, 2}};
+		for(int i=0; i<x.length;i++) {
+			for(int j=0;j<x[0].length;j++) {
+				x[i][j] = t[x[i][j]][y[i][j]];
+			}
+		}
+		return x;
+	}
+	
 	private Integer[][] randomRoom(){
-		Integer[][] room = new Integer[x][y];
+		Integer[][] room = new Integer[hauteur][largeur];
 		Random r = new Random();
-		int x =   r.nextInt((this.x/2)-1 - 2 + 1) + 2;
-		int y =  r.nextInt((this.y/2)-1 - 2 + 1) + 2;
+		int x =   r.nextInt((this.hauteur/2)-1 - 2 + 1) + 2;
+		int y =  r.nextInt((this.largeur/2)-1 - 2 + 1) + 2;
 		
-		for(int i=0;i<this.x;i++) {
-			for(int j=0; j<this.y;j++) {
+		for(int i=0;i<this.hauteur;i++) {
+			for(int j=0; j<this.largeur;j++) {
 				
-				if(i>x && i<(this.x/2)+x && j>y && j<(this.y/2)+y ) {
+				if(i>x && i<(this.largeur/2)+x && j>y && j<(this.largeur/2)+y ) {
 					room[i][j] = 1;
 				}
 			
@@ -82,10 +95,10 @@ public class RoomGenerator {
 	}
 	
 	private Integer[][] sHaut(){
-		Integer[][] salle = new Integer[x][y];
-		for(int i=0;i<x;i++) {
-			for(int j=0;j<y;j++) {
-				if(i<((x)/2)+1&& j>((y)/2)-2 && j<((y)/2)+2) {
+		Integer[][] salle = new Integer[hauteur][largeur];
+		for(int i=0;i<hauteur;i++) {
+			for(int j=0;j<largeur;j++) {
+				if(i<((hauteur)/2)+1&& j>((largeur)/2)-2 && j<((largeur)/2)+2) {
 					salle[i][j] = 1;
 				}
 				else {
@@ -96,10 +109,10 @@ public class RoomGenerator {
 		return salle;
 	}
 	private Integer[][] sBas(){
-		Integer[][] salle = new Integer[x][y];
-		for(int i=0;i<x;i++) {
-			for(int j=0;j<y;j++) {
-				if(i>((x)/2)-1 && j>((y)/2)-2 && j<((y)/2)+2) {
+		Integer[][] salle = new Integer[hauteur][largeur];
+		for(int i=0;i<hauteur;i++) {
+			for(int j=0;j<largeur;j++) {
+				if(i>((hauteur)/2)-1 && j>((largeur)/2)-2 && j<((largeur)/2)+2) {
 					salle[i][j] = 1;
 				}
 
@@ -112,10 +125,10 @@ public class RoomGenerator {
 	}
 	
 	private Integer[][] sDroite(){
-		Integer[][] salle = new Integer[x][y];
-		for(int i=0;i<x;i++) {
-			for(int j=0;j<y;j++) {
-				if(j>((y)/2)-1 && i>((x)/2)-2 && i<((x)/2)+2) {
+		Integer[][] salle = new Integer[hauteur][largeur];
+		for(int i=0;i<hauteur;i++) {
+			for(int j=0;j<largeur;j++) {
+				if(j>((largeur)/2)-1 && i>((hauteur)/2)-2 && i<((hauteur)/2)+2) {
 					salle[i][j] = 1;
 				}
 				else {
@@ -127,15 +140,13 @@ public class RoomGenerator {
 	}
 	
 	private Integer[][] sGauche(){
-		Integer[][] salle = new Integer[x][y];
-		for(int i=0;i<x;i++) {
-			for(int j=0;j<y;j++) {
-				if(j<(y+1)/2 && i>((x)/2)-2 && i<((x)/2)+2) {
+		Integer[][] salle = new Integer[hauteur][largeur];
+		for(int i=0;i<hauteur;i++) {
+			for(int j=0;j<largeur;j++) {
+				if(j<(largeur+1)/2 && i>((hauteur)/2)-2 && i<((hauteur)/2)+2) {
 					salle[i][j] = 1;
 				}
-				else if(j<((y)/2)+1 && i>((x)/2)-3 && i<((x)/2)+3 || j==((y)/2)+1 && i>((x)/2)-3 && i<((x)/2)+3) {
-					salle[i][j] = 0;
-				}
+
 				else {
 					salle[i][j] = 0;
 				}
@@ -143,24 +154,13 @@ public class RoomGenerator {
 		}
 		return salle;
 	}
-	private Integer[][] combine(Integer[][] x,Integer[][] y){
-		int[][] t = {
-				{0, 1, 2},
-				{1, 1, 1},
-				{2, 1, 2}};
-		for(int i=0; i<this.x;i++) {
-			for(int j=0;j<this.y;j++) {
-				x[i][j] = t[x[i][j]][y[i][j]];
-			}
-		}
-		return x;
-	}
 	
-	public int getX() {
-		return x;
+	
+	public int getHauteur() {
+		return hauteur;
 	}
-	public int getY() {
-		return y;
+	public int getLargeur() {
+		return largeur;
 	}
 	
 	public Integer getDifficulty() {
@@ -178,8 +178,8 @@ public class RoomGenerator {
 	@Override
 	public String toString() {
 		String s ="";
-		for(int i=0;i<x;i++) {
-			for(int j=0; j<y;j++){
+		for(int i=0;i<hauteur;i++) {
+			for(int j=0; j<largeur;j++){
 				s = s +" "+ Integer.toString(surface[i][j]);
 			}
 			s += "\n";

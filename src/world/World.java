@@ -9,7 +9,7 @@ import utils.Vector;
 
 public class World {
 	
-	public static float SIZE = 3;
+	public static float SIZE = 5;
 	public Room[][] rooms;
 	
 	public World () {
