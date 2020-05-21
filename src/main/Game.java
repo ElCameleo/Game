@@ -25,10 +25,11 @@ public class Game extends Application {
 	public Player player;
 	public Shop shop;
 	public Stage stage;
+	public Camera camera;
 	
 	public void setup (GraphicsContext gc) {
-		world = WorldGenerator.create();
-		
+		world = WorldGenerator.create(this);
+		camera = new Camera(this, gc);
 		handler = new Handler(this);
 		player = new Player(this, world.getStartPosition());
 		handler.addMob(player);
@@ -38,13 +39,13 @@ public class Game extends Application {
 	public void update (GraphicsContext gc) {
 		gc.setFill(Color.BLACK);
 		gc.fillRect(0, 0, Renderer.WIDTH, Renderer.HEIGHT);
-		gc.save();
-		gc.translate(-player.getPosition().x * Renderer.CELLSIZE + Renderer.WIDTH/2, -player.getPosition().y * Renderer.CELLSIZE + Renderer.HEIGHT/2);	
+		camera.startTranslate();
 		world.render(gc);
 		handler.process(gc);
-		gc.restore();
+		camera.endTranslate();
+		player.weapon.render(gc, 0, 0);
+		player.bag.render(gc);
 	}
-
 	
 	@Override
 	public void start(Stage stage) throws Exception {	

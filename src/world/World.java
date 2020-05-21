@@ -1,10 +1,10 @@
 package world;
 
-import generator.WorldGenerator;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
+import main.Game;
 import main.Renderer;
 import utils.Border;
+import utils.Collision;
 import utils.Vector;
 
 public class World {
@@ -12,11 +12,13 @@ public class World {
 	public static float SIZE = 2;
 	public Room[][] rooms;
 	public Room roomStart, roomEnd;
+	public Game game;
 	
-	public World (Room[][] rooms, Room roomStart, Room roomEnd) {
+	public World (Game game, Room[][] rooms, Room roomStart, Room roomEnd) {
 		this.rooms = rooms;
 		this.roomStart = roomStart;
 		this.roomEnd = roomEnd;
+		this.game = game;
 	}
 	
 	public boolean canMoveTo (Border border) {
@@ -53,14 +55,16 @@ public class World {
 	}
 	
 	public void render (GraphicsContext gc) {
-		gc.setStroke(Color.GREY);
-		
+		Border cameraBorder = game.camera.getBorders();
 		for (int i = 0 ; i < rooms.length ; i++) {
 			for (int j = 0 ; j < rooms.length ; j++) {
-				gc.save();
-				gc.translate(i * Room.SIZE * Renderer.CELLSIZE, j * Room.SIZE * Renderer.CELLSIZE);
-				rooms[i][j].render(gc);
-				gc.restore();
+				Border roomBorder = rooms[i][j].getBorder(new Vector (i * Room.SIZE * Renderer.CELLSIZE, j * Room.SIZE * Renderer.CELLSIZE));
+				if (Collision.rect(cameraBorder, roomBorder)) {
+					gc.save();
+					gc.translate(i * Room.SIZE * Renderer.CELLSIZE, j * Room.SIZE * Renderer.CELLSIZE);
+					rooms[i][j].render(gc);
+					gc.restore();
+				}
 			}
 		}
 	}

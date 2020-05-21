@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javafx.scene.canvas.GraphicsContext;
 import mob.Mob;
 import utils.Border;
+import utils.Collision;
 import utils.Vector;
 
 public class Handler extends ArrayList<GameObject> {
@@ -34,8 +35,7 @@ public class Handler extends ArrayList<GameObject> {
 	}
 	
 	public boolean collide (Border border1, Border border2) {
-		return border1.topLeft.x < border2.topRight.x && border1.topRight.x > border2.topLeft.x &&
-				border1.topLeft.y < border2.downLeft.y && border1.downLeft.y > border2.topLeft.y;
+		return Collision.rect(border1, border2);
 	}
 	
 	public boolean canMoveTo (Mob mob) {

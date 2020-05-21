@@ -19,7 +19,7 @@ public class Player extends Mob {
 	public Bag bag;
 
 	public Player(Game game, Vector position) {
-		super(game, "PLAYER", position, new Vector(1, 1), Color.DARKRED, 0.02f, 10);
+		super(game, "PLAYER", position, new Vector(1, 1), Color.DARKRED, 0.04f, 10);
 		game.scene.addEventFilter(KeyEvent.KEY_PRESSED, keyPressedEventHandler);
 		game.scene.addEventFilter(KeyEvent.KEY_RELEASED, keyReleasedEventHandler);
 		

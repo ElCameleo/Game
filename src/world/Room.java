@@ -4,6 +4,8 @@ import generator.RoomGenerator;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import main.Renderer;
+import utils.Border;
+import utils.FillStroke;
 import utils.Vector;
 
 public class Room {
@@ -26,22 +28,30 @@ public class Room {
 		return grid[(int) pos.x][(int) pos.y] == 1;
 	}
 	
+	public Border getBorder (Vector topLeft) {
+		return new Border (
+			topLeft,
+			new Vector (topLeft.x + Renderer.WIDTH, topLeft.y),
+			new Vector (topLeft.x, topLeft.y + Renderer.HEIGHT),
+			new Vector (topLeft.x + Renderer.WIDTH, topLeft.y + Renderer.HEIGHT)
+		);
+	}
+	
 	public void render (GraphicsContext gc) {
 		
 		switch (type) {
-			case START: gc.setFill(Color.LIGHTGREEN); break;
-			case END: gc.setFill(Color.LIGHTPINK); break;
-			case LOOT: gc.setFill(Color.LIGHTGOLDENRODYELLOW); break;
-			case BOSS: gc.setFill(Color.LIGHTGRAY); break;
-			case NORMAL: gc.setFill(Color.WHITE); break;
+			case START: FillStroke.setColor(gc, Color.LIGHTGREEN); break;
+			case END: FillStroke.setColor(gc, Color.LIGHTPINK); break;
+			case LOOT: FillStroke.setColor(gc, Color.LIGHTGOLDENRODYELLOW); break;
+			case BOSS: FillStroke.setColor(gc, Color.LIGHTGRAY); break;
+			case NORMAL: FillStroke.setColor(gc, Color.WHITE); break;
 		}
 		
 		for (int i = 0 ; i < grid.length ; i++) {
 			for (int j = 0 ; j < grid.length ; j++) {
 				if (grid[i][j] == 1) {
-					gc.fillRect(i * Renderer.CELLSIZE, j * Renderer.CELLSIZE, Renderer.CELLSIZE, Renderer.CELLSIZE);
+					FillStroke.rect(gc, i * Renderer.CELLSIZE, j * Renderer.CELLSIZE, Renderer.CELLSIZE, Renderer.CELLSIZE);
 				} 
-				//gc.strokeRect(i * Renderer.CELLSIZE, j * Renderer.CELLSIZE, Renderer.CELLSIZE, Renderer.CELLSIZE);
 			}
 		}
 	}

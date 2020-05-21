@@ -2,6 +2,7 @@ package generator;
 
 import java.util.Random;
 
+import main.Game;
 import world.Room;
 import world.World;
 
@@ -190,7 +191,7 @@ public class WorldGenerator {
 		return etage;
 	}
 	
-	public static World create () {
+	public static World create (Game game) {
 		WorldGenerator WG = new WorldGenerator((int) World.SIZE,(int) World.SIZE);
 		System.out.println(WG.toString());
 		int[] depart = {-1,-1};
@@ -217,7 +218,7 @@ public class WorldGenerator {
 		roomStart = world[depart[0]][depart[1]];
 		roomEnd = world[arrive[0]][arrive[1]];
 		
-		return new World(world, roomStart, roomEnd);
+		return new World(game, world, roomStart, roomEnd);
 	}
 
 }
