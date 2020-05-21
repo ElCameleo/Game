@@ -1,9 +1,9 @@
 package item.weapon;
 
 public class Sword extends Weapon {
-
-	public Sword() {
-		super("SWORD", 7);
+	int durability;
+	public Sword(int durability) {
+		super("SWORD", 7,durability);
 	}
 
 }
