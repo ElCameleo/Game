@@ -33,7 +33,6 @@ public class Game extends Application {
 		handler = new Handler(this);
 		player = new Player(this, world.getStartPosition());
 		handler.addMob(player);
-		handler.addMob(new Dealer(this, new Vector(6, 6)));
 	}
 	
 	public void update (GraphicsContext gc) {
