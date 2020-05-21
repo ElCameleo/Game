@@ -190,12 +190,13 @@ public class WorldGenerator {
 		return etage;
 	}
 	
-	public static Room[][] create () {
+	public static World create () {
 		WorldGenerator WG = new WorldGenerator((int) World.SIZE,(int) World.SIZE);
 		System.out.println(WG.toString());
 		int[] depart = {-1,-1};
 		int[] arrive = {-1,-1};
 		Room[][] world = new Room[(int) World.SIZE][(int) World.SIZE];
+		Room roomStart, roomEnd;
 		for (int i = 0 ; i < world.length ; i++) {
 			for (int j = 0 ; j < world.length ; j++) {
 				world[i][j] = new Room(WG.getEtage()[i][j]);
@@ -210,10 +211,13 @@ public class WorldGenerator {
 			}
 		}
 		
-		world[depart[0]][depart[1]].type = "depart";
-		world[arrive[0]][arrive[1]].type = "arrive";
+		world[depart[0]][depart[1]].type = Room.RoomType.START;
+		world[arrive[0]][arrive[1]].type = Room.RoomType.END;
 		
-		return world;
+		roomStart = world[depart[0]][depart[1]];
+		roomEnd = world[arrive[0]][arrive[1]];
+		
+		return new World(world, roomStart, roomEnd);
 	}
 
 }

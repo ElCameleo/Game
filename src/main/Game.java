@@ -1,5 +1,6 @@
 package main;
 
+import generator.WorldGenerator;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -26,10 +27,10 @@ public class Game extends Application {
 	public Stage stage;
 	
 	public void setup (GraphicsContext gc) {
-		world = new World();
+		world = WorldGenerator.create();
 		
 		handler = new Handler(this);
-		player = new Player(this, new Vector(55, 55));
+		player = new Player(this, world.getStartPosition());
 		handler.addMob(player);
 		handler.addMob(new Dealer(this, new Vector(6, 6)));
 	}

@@ -9,11 +9,14 @@ import utils.Vector;
 
 public class World {
 	
-	public static float SIZE = 5;
+	public static float SIZE = 2;
 	public Room[][] rooms;
+	public Room roomStart, roomEnd;
 	
-	public World () {
-		rooms = WorldGenerator.create();
+	public World (Room[][] rooms, Room roomStart, Room roomEnd) {
+		this.rooms = rooms;
+		this.roomStart = roomStart;
+		this.roomEnd = roomEnd;
 	}
 	
 	public boolean canMoveTo (Border border) {
@@ -32,9 +35,26 @@ public class World {
 		return new Vector((int) pos.x, (int) pos.y);
 	}
 	
+	public Vector getRoomVector (Room room) {
+		for (int i = 0 ; i < rooms.length ; i++) {
+			for (int j = 0 ; j < rooms.length ; j++) {
+				if (rooms[i][j] == room) return new Vector (i, j);
+			}
+		}
+		return null;
+	}
+	
+	public Vector getStartPosition () {
+		Vector roomPos = getRoomVector(roomStart);
+		return new Vector (
+			(float) (roomPos.x + 0.5) * Room.SIZE,
+			(float) (roomPos.y + 0.5) * Room.SIZE
+		);
+	}
+	
 	public void render (GraphicsContext gc) {
 		gc.setStroke(Color.GREY);
-		gc.setFill(Color.WHITE);
+		
 		for (int i = 0 ; i < rooms.length ; i++) {
 			for (int j = 0 ; j < rooms.length ; j++) {
 				gc.save();

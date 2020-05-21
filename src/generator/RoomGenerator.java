@@ -4,12 +4,13 @@ import java.util.Random;
 
 import utils.Vector;
 import world.Room;
+import world.Room.RoomType;
 
 public class RoomGenerator {
 	
 	private Integer[][] surface;
 	private String typeIntersection;
-	private String type;
+	private RoomType type;
 	private Integer difficulty;
 	private int hauteur=11;
 	private int largeur=11;
@@ -45,7 +46,7 @@ public class RoomGenerator {
 		}
 		Random r = new Random();
 		this.difficulty = r.nextInt(10);
-		String[] typeRoom = {"Bonus","Boss","Normal"};
+		RoomType[] typeRoom = { RoomType.LOOT, RoomType.BOSS, RoomType.NORMAL };
 		this.type = typeRoom[r.nextInt(3)];
 		
 	}
@@ -167,7 +168,7 @@ public class RoomGenerator {
 		return difficulty;
 	}
 	
-	public String getType() {
+	public RoomType getType() {
 		return this.type;
 	}
 	
