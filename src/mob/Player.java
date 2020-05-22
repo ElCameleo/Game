@@ -23,7 +23,7 @@ public class Player extends Mob {
 		game.scene.addEventFilter(KeyEvent.KEY_PRESSED, keyPressedEventHandler);
 		game.scene.addEventFilter(KeyEvent.KEY_RELEASED, keyReleasedEventHandler);
 		
-		weapon = new Spear();
+		weapon = new Spear(20);
 		bag = new Bag(game);
 	}
 	
@@ -53,6 +53,7 @@ public class Player extends Mob {
     				Shop shop = new Shop(10);
     				Scene shopScene = new Scene(shop);
     				shop.setGame(game);
+    				shop.printStore(new Dealer(game,new Vector(0,0)), this.bag); //Vector modifiable
     				//shop.addGoodies(((Dealer) obj).getStore());
     				game.stage.setScene(shopScene);
     			}
@@ -64,5 +65,15 @@ public class Player extends Mob {
 	public Vector move() {
 		return new Vector((controls[2] - controls[0]) * speed, (controls[3] - controls[1]) * speed);
 	}
-
+	public Weapon getWeapon() {
+		return(this.weapon);
+	}
+	public Bag getBag() {
+		return(this.bag);
+	}
+	public void checkDurability(Weapon weapon) {
+		if(weapon.getDurability() == 0) {  //Penser à enlever -1 en durabilité à chaque appel de la fonction attaquer() dans player
+			this.weapon = new Hand(); 
+		}
+	}
 }
