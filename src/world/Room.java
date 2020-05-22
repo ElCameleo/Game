@@ -20,12 +20,17 @@ public class Room {
 	
 	private Spawner spawner;
 	private Game game;
+	private Vector delta;
 	
 	public Room (RoomGenerator room, Game game, Vector delta) {
 		this.grid = room.getSurface();
 		this.difficulty = room.getDifficulty();
 		this.type = room.getType();
 		this.game = game;
+		this.delta = delta;
+	}
+	
+	public void populate () {
 		spawner = new Spawner(game, this, delta);
 	}
 	
@@ -45,10 +50,10 @@ public class Room {
 	public void render (GraphicsContext gc) {
 		
 		switch (type) {
-			case START: FillStroke.setColor(gc, Color.LIGHTGREEN); break;
+			case START: FillStroke.setColor(gc, Color.GREEN); break;
 			case END: FillStroke.setColor(gc, Color.LIGHTPINK); break;
-			case LOOT: FillStroke.setColor(gc, Color.LIGHTGOLDENRODYELLOW); break;
-			case BOSS: FillStroke.setColor(gc, Color.LIGHTGRAY); break;
+			case LOOT: FillStroke.setColor(gc, Color.BLUE); break;
+			case BOSS: FillStroke.setColor(gc, Color.RED); break;
 			case NORMAL: FillStroke.setColor(gc, Color.WHITE); break;
 		}
 		
