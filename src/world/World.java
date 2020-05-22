@@ -9,7 +9,7 @@ import utils.Vector;
 
 public class World {
 	
-	public static float SIZE = 2;
+	public static float SIZE = 5;
 	public Room[][] rooms;
 	public Room roomStart, roomEnd;
 	public Game game;
@@ -19,6 +19,14 @@ public class World {
 		this.roomStart = roomStart;
 		this.roomEnd = roomEnd;
 		this.game = game;
+	}
+	
+	public void populate () {
+		for (int i = 0 ; i < rooms.length ; i++) {
+			for (int j = 0 ; j < rooms.length ; j++) {
+				rooms[i][j].populate();
+			}
+		}
 	}
 	
 	public boolean canMoveTo (Border border) {

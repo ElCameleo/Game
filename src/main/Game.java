@@ -33,6 +33,7 @@ public class Game extends Application {
 		world = WorldGenerator.create(this);
 		player = new Player(this, world.getStartPosition());
 		handler.addMob(player);
+		world.populate();
 	}
 	
 	public void update (GraphicsContext gc) {
