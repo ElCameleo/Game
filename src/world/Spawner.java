@@ -11,7 +11,7 @@ import utils.Vector;
 
 public class Spawner {
 	
-	public static float CHUNK_SIZE = 3;
+	public static float CHUNK_SIZE = 4;
 	
 	public ArrayList<Vector> availableZone = new ArrayList<>();
 	private Room room;
@@ -32,7 +32,7 @@ public class Spawner {
 	public void createAvailableZones (Vector delta) {
 		for (int i = 0 ; i < CHUNK_SIZE ; i++) {
 			for (int j = 0 ; j < CHUNK_SIZE ; j++) {
-				Vector pos = new Vector ((int) (i * Room.SIZE / CHUNK_SIZE), (int) (j * Room.SIZE / CHUNK_SIZE));
+				Vector pos = new Vector (((i+0.5f) * Room.SIZE / CHUNK_SIZE), (j+0.0f) * Room.SIZE / CHUNK_SIZE);
 				if (room.isGround(pos)) availableZone.add(pos.add(delta));
 			}
 		}
