@@ -13,7 +13,7 @@ public abstract class Mob extends GameObject {
 	private Color color;
 	protected float speed;
 	public float life;
-
+	public float attack;
 	public Mob(Game game, String name, Vector position, Vector size, Color color, float speed, float life) {
 		super(game, name, position, size);
 		this.color = color;
