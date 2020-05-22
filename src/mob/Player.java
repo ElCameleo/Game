@@ -53,7 +53,7 @@ public class Player extends Mob {
     				Shop shop = new Shop(10);
     				Scene shopScene = new Scene(shop);
     				shop.setGame(game);
-    				shop.printStore(new Dealer(game,new Vector(0,0)), this.bag);
+    				shop.printStore(new Dealer(game,new Vector(0,0)), this.bag); //Vector modifiable
     				//shop.addGoodies(((Dealer) obj).getStore());
     				game.stage.setScene(shopScene);
     			}
