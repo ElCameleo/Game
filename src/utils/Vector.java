@@ -34,5 +34,12 @@ public class Vector {
 	public static float dist (Vector vec1, Vector vec2) {
 		return (float) Math.sqrt(Math.pow(vec1.x - vec2.x, 2) + Math.pow(vec1.y - vec2.y, 2));
 	}
+
+	@Override
+	public String toString() {
+		return "Vector [x=" + x + ", y=" + y + "]";
+	}
+	
+	
 	
 }

@@ -28,9 +28,9 @@ public class Game extends Application {
 	public Camera camera;
 	
 	public void setup (GraphicsContext gc) {
-		world = WorldGenerator.create(this);
 		camera = new Camera(this, gc);
 		handler = new Handler(this);
+		world = WorldGenerator.create(this);
 		player = new Player(this, world.getStartPosition());
 		handler.addMob(player);
 	}

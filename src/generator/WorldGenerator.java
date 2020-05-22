@@ -3,6 +3,8 @@ package generator;
 import java.util.Random;
 
 import main.Game;
+import main.Renderer;
+import utils.Vector;
 import world.Room;
 import world.World;
 
@@ -200,7 +202,7 @@ public class WorldGenerator {
 		Room roomStart, roomEnd;
 		for (int i = 0 ; i < world.length ; i++) {
 			for (int j = 0 ; j < world.length ; j++) {
-				world[i][j] = new Room(WG.getEtage()[i][j]);
+				world[i][j] = new Room(WG.getEtage()[i][j], game, new Vector(i, j).multiply(Room.SIZE));
 				if (WG.getMap()[i][j] != 0) {
 					if(depart[0] ==-1) {
 						depart[0] = i;

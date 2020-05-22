@@ -3,6 +3,7 @@ package world;
 import generator.RoomGenerator;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import main.Game;
 import main.Renderer;
 import utils.Border;
 import utils.FillStroke;
@@ -11,17 +12,21 @@ import utils.Vector;
 public class Room {
 	
 	public static float SIZE = 21;
-	public static float CORRIDOR_SIZE = 0;
 	public static enum RoomType { START, END, BOSS, NORMAL, LOOT };
 	public RoomType type;
 	
 	public Integer[][] grid;
 	public Integer difficulty;
 	
-	public Room (RoomGenerator room) {
+	private Spawner spawner;
+	private Game game;
+	
+	public Room (RoomGenerator room, Game game, Vector delta) {
 		this.grid = room.getSurface();
 		this.difficulty = room.getDifficulty();
 		this.type = room.getType();
+		this.game = game;
+		spawner = new Spawner(game, this, delta);
 	}
 	
 	public boolean isGround (Vector pos) {
