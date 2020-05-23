@@ -25,11 +25,11 @@ public class Bag extends ArrayList<Potion> {
 			}
 		});
 		
-		this.addPotion(new LifePotion(game,0));
-		this.addPotion(new LifePotion(game,0));
-		this.addPotion(new LifePotion(game,0));
-		this.addPotion(new LifePotion(game,0));
-		this.addPotion(new LifePotion(game,0));
+		this.addPotion(new LifePotion(game));
+		this.addPotion(new LifePotion(game));
+		this.addPotion(new LifePotion(game));
+		this.addPotion(new LifePotion(game));
+		this.addPotion(new LifePotion(game));
 	}
 	
 	public boolean addPotion (Potion potion) {

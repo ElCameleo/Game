@@ -1,6 +1,7 @@
 package mob;
 
 import item.potion.Bag;
+import item.weapon.Hand;
 import item.weapon.Spear;
 import item.weapon.Weapon;
 import javafx.event.EventHandler;
@@ -52,9 +53,8 @@ public class Player extends Mob {
     			if (Vector.dist(this.position, obj.getPosition()) < 3) {
     				Shop shop = new Shop(10);
     				Scene shopScene = new Scene(shop);
+    				shop.printStore((Dealer) obj, this.bag);
     				shop.setGame(game);
-    				shop.printStore(new Dealer(game,new Vector(0,0)), this.bag); //Vector modifiable
-    				//shop.addGoodies(((Dealer) obj).getStore());
     				game.stage.setScene(shopScene);
     			}
     		}
