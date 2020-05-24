@@ -15,7 +15,7 @@ public class RoomGenerator {
 	private int hauteur=11;
 	private int largeur=11;
 	
-	public RoomGenerator(int salle,int taille) {
+	public RoomGenerator(int salle,int taille, RoomType type, int difficulty) {
 		hauteur = taille;
 		largeur = taille;
 		surface = new Integer[hauteur][largeur];
@@ -44,15 +44,13 @@ public class RoomGenerator {
 				surface = combine(surface,randomRoom());
 			}
 		}
-		Random r = new Random();
-		this.difficulty = r.nextInt(10);
-		RoomType[] typeRoom = { RoomType.LOOT, RoomType.BOSS, RoomType.NORMAL };
-		this.type = typeRoom[r.nextInt(3)];
+		this.difficulty = difficulty;
+		this.type = type;
 		
 	}
 
 	
-	private String binarySalle(int type) {
+	public static String binarySalle(int type) {
 		String t = Integer.toBinaryString(type);
 		while(t.length()<4) {
 			t = "0"+t;
@@ -176,6 +174,13 @@ public class RoomGenerator {
 		return surface;
 	}
 
+	public void setType(RoomType type) {
+		this.type = type;
+	}
+	public void setDifficulty(int difficulty) {
+		this.difficulty = difficulty;
+	}
+	
 	@Override
 	public String toString() {
 		String s ="";
