@@ -1,12 +1,14 @@
 package generator;
 
 import java.util.Random;
+import java.util.ArrayList;
 
 import main.Game;
 import main.Renderer;
 import utils.Vector;
 import world.Room;
 import world.World;
+import world.Room.RoomType;
 
 public class WorldGenerator {
 
@@ -163,13 +165,87 @@ public class WorldGenerator {
 		} 
 	}
 	
+	
+	private void generateRoom(int x, int y, int profondeur) {
+		String directions = RoomGenerator.binarySalle(map[x][y]);
+
+		if(etage[x][y].getType() == RoomType.EMPTY || etage[x][y].getDifficulty() > profondeur) {
+			
+			printEtage();
+			System.out.println(directions);
+			
+			
+			if((map[x][y] == 1 || map[x][y] == 2 || map[x][y] == 4 || map[x][y] == 8 )&& profondeur !=0) {
+				etage[x][y].setType(RoomType.LOOT);
+				etage[x][y].setDifficulty(0);
+			}
+			else if(profondeur == 0) {
+				etage[x][y].setType(RoomType.START);
+				etage[x][y].setDifficulty(0);
+			}
+			else {
+				etage[x][y].setType(RoomType.NORMAL);
+				etage[x][y].setDifficulty(profondeur);
+			}
+			
+			// puis deplacement
+			if(directions.charAt(0) == '1') {
+				generateRoom(x,y-1,profondeur+1);
+			}
+			if(directions.charAt(1) == '1') {
+				generateRoom(x+1,y,profondeur+1);
+			}
+			if(directions.charAt(2) == '1') {
+				generateRoom(x,y+1,profondeur+1);
+			}
+			if(directions.charAt(3) == '1') {
+				generateRoom(x-1,y,profondeur+1);
+			}
+			
+		}
+		
+		
+	}
+	
 	private void createEtage() {
 		etage = new RoomGenerator[hauteur][largeur];
+		ArrayList<int[]> startRooms = new ArrayList<int[]>();
+		ArrayList<int[]> rooms = new ArrayList<int[]>();
+
 		for(int i=0;i<hauteur;i++) {
 			for(int j=0;j<largeur;j++) {
-				etage[i][j] = new RoomGenerator(map[i][j],(int)Room.SIZE);
+				etage[i][j] = new RoomGenerator(map[i][j],(int)Room.SIZE,RoomType.EMPTY,0);
+				int[] coord = {i,j};
+				if(map[i][j] == 1 || map[i][j] == 2 || map[i][j] == 4 || map[i][j] == 8) {
+					rooms.add(coord);
+				}
+				else if(map[i][j] != 0) {
+					startRooms.add(coord);
+				}
 			}
 		}
+		Random r = new Random();
+		int index = r.nextInt(rooms.size());
+		generateRoom(rooms.get(index)[0],rooms.get(index)[1],0);
+		rooms.remove(index);
+		index = r.nextInt(rooms.size());
+		etage[rooms.get(index)[0]][rooms.get(index)[1]].setType(RoomType.END);
+	}
+	
+	public void printEtage() {
+		String types = "";
+		String difficulties = "";
+		for(int i = 0; i<etage.length;i++) {
+			for (int j = 0; j<etage[i].length;j++){
+				types += " " + etage[i][j].getType().toString();
+				difficulties += " " + etage[i][j].getDifficulty();
+			}
+			types += "\n";
+			difficulties += "\n";
+		}
+		System.out.println(this.toString());
+		System.out.println(types);
+		System.out.println(difficulties);
 	}
 	
 	@Override
@@ -196,7 +272,8 @@ public class WorldGenerator {
 	public static World create (Game game) {
 		WorldGenerator WG = new WorldGenerator((int) World.SIZE,(int) World.SIZE);
 		System.out.println(WG.toString());
-		int[] depart = {-1,-1};
+		WG.printEtage();
+		int[] depart = {2,2};
 		int[] arrive = {-1,-1};
 		Room[][] world = new Room[(int) World.SIZE][(int) World.SIZE];
 		Room roomStart, roomEnd;
@@ -204,18 +281,18 @@ public class WorldGenerator {
 			for (int j = 0 ; j < world.length ; j++) {
 				world[i][j] = new Room(WG.getEtage()[i][j], game, new Vector(i, j).multiply(Room.SIZE));
 				if (WG.getMap()[i][j] != 0) {
-					if(depart[0] ==-1) {
+					if(world[i][j].type == RoomType.START) {
 						depart[0] = i;
 						depart[1] = j;
 					}
-					arrive[0] = i;
-					arrive[1] = j;
+					if(world[i][j].type == RoomType.END) {
+						arrive[0] = i;
+						arrive[1] = j;
+					}
 				}
 			}
 		}
-		
-		world[depart[0]][depart[1]].type = Room.RoomType.START;
-		world[arrive[0]][arrive[1]].type = Room.RoomType.END;
+
 		
 		roomStart = world[depart[0]][depart[1]];
 		roomEnd = world[arrive[0]][arrive[1]];

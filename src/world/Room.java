@@ -12,7 +12,16 @@ import utils.Vector;
 public class Room {
 	
 	public static float SIZE = 21;
-	public static enum RoomType { START, END, BOSS, NORMAL, LOOT };
+	public static enum RoomType { 
+		START("S"), END("E"), BOSS("B"), NORMAL("N"), LOOT("L"), EMPTY("."); 
+		String string;
+		RoomType(String s){
+			string = s;
+		}
+		public String toString() {
+			return this.string;
+		}
+	};
 	public RoomType type;
 	
 	public Integer[][] grid;
