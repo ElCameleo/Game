@@ -39,6 +39,7 @@ public class Handler extends ArrayList<GameObject> {
 	}
 	
 	public boolean canMoveTo (Mob mob) {
+		/*
 		if (mob.name != "PLAYER") return false;
 		Border border = mob.calculBorders();
 		for (GameObject other: this) {
@@ -49,6 +50,7 @@ public class Handler extends ArrayList<GameObject> {
 				}
 			}
 		}
+		*/
 		return true;
 	}
 	

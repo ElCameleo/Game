@@ -18,6 +18,7 @@ public class Player extends Mob {
 	private int[] controls = { 0, 0, 0, 0 };
 	public Weapon weapon;
 	public Bag bag;
+	public int gold = 10;
 
 	public Player(Game game, Vector position) {
 		super(game, "PLAYER", position, new Vector(1, 1), Color.DARKRED, 0.4f, 10);

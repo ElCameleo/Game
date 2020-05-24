@@ -10,6 +10,6 @@ public class LifePotion extends Potion {
 
 	@Override
 	public void apply() {
-		game.player.life += 20;
+		game.player.addLife(20);
 	}
 }

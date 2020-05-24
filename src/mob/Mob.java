@@ -12,13 +12,14 @@ public abstract class Mob extends GameObject {
 	
 	private Color color;
 	protected float speed;
-	public float life;
+	public float life, maxLife;
 	public float attack;
 	public Mob(Game game, String name, Vector position, Vector size, Color color, float speed, float life) {
 		super(game, name, position, size);
 		this.color = color;
 		this.speed = speed;
 		this.life = life;
+		this.maxLife = life;
 	}
 
 	@Override
@@ -39,5 +40,10 @@ public abstract class Mob extends GameObject {
 	}
 	
 	public abstract Vector move();
+	
+	public void addLife (float life) {
+		this.life += life;
+		if (this.life > maxLife) this.life = maxLife;
+	}
 
 }

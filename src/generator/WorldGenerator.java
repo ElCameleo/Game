@@ -172,7 +172,7 @@ public class WorldGenerator {
 		if(etage[x][y].getType() == RoomType.EMPTY || etage[x][y].getDifficulty() > profondeur) {
 			
 			printEtage();
-			System.out.println(directions);
+			//System.out.println(directions);
 			
 			
 			if((map[x][y] == 1 || map[x][y] == 2 || map[x][y] == 4 || map[x][y] == 8 )&& profondeur !=0) {
@@ -243,9 +243,9 @@ public class WorldGenerator {
 			types += "\n";
 			difficulties += "\n";
 		}
-		System.out.println(this.toString());
-		System.out.println(types);
-		System.out.println(difficulties);
+		//System.out.println(this.toString());
+		//System.out.println(types);
+		//System.out.println(difficulties);
 	}
 	
 	@Override
@@ -271,7 +271,7 @@ public class WorldGenerator {
 	
 	public static World create (Game game) {
 		WorldGenerator WG = new WorldGenerator((int) World.SIZE,(int) World.SIZE);
-		System.out.println(WG.toString());
+		//System.out.println(WG.toString());
 		WG.printEtage();
 		int[] depart = {2,2};
 		int[] arrive = {-1,-1};

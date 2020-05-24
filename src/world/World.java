@@ -9,7 +9,7 @@ import utils.Vector;
 
 public class World {
 	
-	public static float SIZE = 5;
+	public static float SIZE = 3;
 	public Room[][] rooms;
 	public Room roomStart, roomEnd;
 	public Game game;
@@ -60,6 +60,20 @@ public class World {
 			(float) (roomPos.x + 0.5) * Room.SIZE,
 			(float) (roomPos.y + 0.5) * Room.SIZE
 		);
+	}
+	
+	public int[][] getTotalArray () {
+		int[][] world = new int[(int) (World.SIZE * Room.SIZE)][(int) (World.SIZE * Room.SIZE)];
+		for (int i = 0 ; i < World.SIZE ; i++) {
+			for (int j = 0 ; j < World.SIZE ; j++) {
+				for (int k = 0 ; k < Room.SIZE ; k++) {
+					for (int l = 0 ; l < Room.SIZE ; l++) {
+						world[(int) (i * Room.SIZE + k)][(int) (j * Room.SIZE + l)] = rooms[i][j].grid[k][l];
+					}
+				}
+			}
+		}
+		return world;
 	}
 	
 	public void render (GraphicsContext gc) {

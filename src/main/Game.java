@@ -8,10 +8,12 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import mob.Dealer;
 import mob.Player;
+import pathfinding.Path;
 import scene.Shop;
+import ui.LifeBar;
 import utils.Vector;
 import world.World;
 
@@ -26,14 +28,18 @@ public class Game extends Application {
 	public Shop shop;
 	public Stage stage;
 	public Camera camera;
+	public LifeBar lifeBar;
 	
 	public void setup (GraphicsContext gc) {
+		gc.setTextAlign(TextAlignment.CENTER);
 		camera = new Camera(this, gc);
 		handler = new Handler(this);
 		world = WorldGenerator.create(this);
 		player = new Player(this, world.getStartPosition());
 		handler.addMob(player);
 		world.populate();
+		lifeBar = new LifeBar(this, player);
+		Path.init(world);
 	}
 	
 	public void update (GraphicsContext gc) {
@@ -45,6 +51,7 @@ public class Game extends Application {
 		camera.endTranslate();
 		player.weapon.render(gc, 0, 0);
 		player.bag.render(gc);
+		lifeBar.render(gc);
 	}
 	
 	@Override
