@@ -22,11 +22,19 @@ public class Handler extends ArrayList<GameObject> {
 		}
 		return null;
 	}
-
+	
 	public void process(GraphicsContext gc) {
+		for (int i = this.size() - 1 ; i >= 0 ; i--) {
+        	this.get(i).update();
+        }
+		
 		for (GameObject obj: this) {
-        	obj.update();
         	obj.render(gc);
+        }
+		for (int i = this.size() - 1 ; i >= 0 ; i--) {
+        	if (this.get(i).checkIfDead()) {
+        		remove(i);
+        	}
         }
 	}
 	

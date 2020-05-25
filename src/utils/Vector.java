@@ -40,6 +40,10 @@ public class Vector {
 		return "Vector [x=" + x + ", y=" + y + "]";
 	}
 	
+	public Vector clone () {
+		return new Vector(x, y);
+	}
+	
 	
 	
 }

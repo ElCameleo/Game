@@ -27,6 +27,8 @@ public abstract class GameObject {
 		);
 	}
 	
+	public abstract boolean checkIfDead ();
+	
 	public abstract void update();
 	
 	public abstract void render(GraphicsContext gc);

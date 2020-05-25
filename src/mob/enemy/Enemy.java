@@ -1,5 +1,6 @@
 package mob.enemy;
 
+import item.weapon.Spear;
 import javafx.scene.paint.Color;
 import main.Game;
 import mob.Mob;
@@ -10,7 +11,7 @@ public abstract class Enemy extends Mob {
 	public float difficulty;
 
 	public Enemy(Game game, String name, Vector position, Vector size, Color color, float speed, float life, float difficulty) {
-		super(game, name, position, size, color, speed, life);
+		super(game, name, position, size, color, speed, life, new Spear());
 		this.difficulty = difficulty;
 	}
 

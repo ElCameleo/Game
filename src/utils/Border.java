@@ -2,6 +2,7 @@ package utils;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import main.Renderer;
 
 public class Border {
 	
@@ -21,6 +22,11 @@ public class Border {
 		gc.setStroke(Color.RED);
 		gc.setLineWidth(15);
 		gc.strokeRect(topLeft.x, topLeft.y, topRight.x - topLeft.x, downLeft.y - topLeft.y);
+	}
+	
+	public void fill (GraphicsContext gc, Color color) {
+		gc.setFill(color);
+		gc.fillRect(topLeft.x * Renderer.CELLSIZE, topLeft.y * Renderer.CELLSIZE, (topRight.x - topLeft.x) * Renderer.CELLSIZE, (downLeft.y - topLeft.y) * Renderer.CELLSIZE);
 	}
 
 

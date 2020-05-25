@@ -20,7 +20,7 @@ public class BFS {
     } 
       
     private static final int numVertex = (int) (Room.SIZE * Room.SIZE * World.SIZE * World.SIZE); // number of edges (9 because the test has 9 edges)
-    private ArrayList<Node>[] edges = new ArrayList[numVertex]; 
+    public ArrayList<Node>[] edges = new ArrayList[numVertex]; 
       
     public BFS() { 
         for (int i = 0; i < edges.length; i++) { 
@@ -45,14 +45,15 @@ public class BFS {
         Deque<Integer> queue = new ArrayDeque<Integer>(); 
         dist[src] = 0; 
         queue.addLast(src); 
-          
         while (!queue.isEmpty()) { 
             int v = queue.removeFirst(); 
+            System.out.println(edges[v]);
             for (int i = 0; i < edges[v].size(); i++) { 
   
                 // checking for optimal distance 
+            	System.out.println((dist[edges[v].get(i).lastVertex]));
                 if ((dist[edges[v].get(i).lastVertex]) > (dist[v] + edges[v].get(i).weight)) { 
-
+                	System.out.print("distance update");
                     // update the distance 
                     dist[edges[v].get(i).lastVertex] = dist[v] + edges[v].get(i).weight; 
   
@@ -68,7 +69,7 @@ public class BFS {
             } 
         } 
         for (int i = 0; i < dist.length; i++) { 
-            System.out.print(dist[i] + " "); 
+            //System.out.print(dist[i] + " "); 
         } 
         System.out.println();
     }

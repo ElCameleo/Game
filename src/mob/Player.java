@@ -16,25 +16,23 @@ import utils.Vector;
 public class Player extends Mob {
 	
 	private int[] controls = { 0, 0, 0, 0 };
-	public Weapon weapon;
 	public Bag bag;
 	public int gold = 10;
 
 	public Player(Game game, Vector position) {
-		super(game, "PLAYER", position, new Vector(1, 1), Color.DARKRED, 0.4f, 10);
+		super(game, "PLAYER", position, new Vector(1, 1), Color.DARKRED, 0.1f, 10, new Spear());
 		game.scene.addEventFilter(KeyEvent.KEY_PRESSED, keyPressedEventHandler);
 		game.scene.addEventFilter(KeyEvent.KEY_RELEASED, keyReleasedEventHandler);
 		
-		weapon = new Spear(20);
 		bag = new Bag(game);
 	}
 	
 	private EventHandler<KeyEvent> keyPressedEventHandler = (event -> {
     	switch (event.getCode().ordinal()) {
-    		case 52: controls[0] = 1; break;
-    		case 61: controls[1] = 1; break;
-    		case 39: controls[2] = 1; break;
-    		case 54: controls[3] = 1; break;
+    		case 52: controls[0] = 1; direction = Direction.LEFT; break;
+    		case 61: controls[1] = 1; direction = Direction.UP; break;
+    		case 39: controls[2] = 1; direction = Direction.RIGHT; break;
+    		case 54: controls[3] = 1; direction = Direction.DOWN; break;
     	}
     });
 
@@ -44,11 +42,17 @@ public class Player extends Mob {
 			case 61: controls[1] = 0; break;
 			case 39: controls[2] = 0; break;
 			case 54: controls[3] = 0; break;
-			case 11: openShop(); break;
+			case 11: makeAction(); break;
     	}
     });
     
-    public void openShop() {
+    public void makeAction () {
+    	if (!openShop()) {
+    		game.handler.add(new DamageZone(game, this));
+    	}
+    }
+    
+    public boolean openShop() {
     	for (GameObject obj: game.handler) {
     		if (obj.name == "DEALER") {
     			if (Vector.dist(this.position, obj.getPosition()) < 3) {
@@ -57,9 +61,11 @@ public class Player extends Mob {
     				shop.printStore((Dealer) obj, this.bag);
     				shop.setGame(game);
     				game.stage.setScene(shopScene);
+    				return true;
     			}
     		}
     	}
+    	return false;
     }
 
 	@Override

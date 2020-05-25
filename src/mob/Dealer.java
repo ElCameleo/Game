@@ -21,7 +21,7 @@ public class Dealer extends Mob {
 	
 	private ArrayList<Possession> store = new ArrayList<>();
 	public Dealer(Game game, Vector position) {
-		super(game, "DEALER", position, new Vector(1, 1), Color.LIGHTGOLDENRODYELLOW, 0f, 1);
+		super(game, "DEALER", position, new Vector(1, 1), Color.LIGHTGOLDENRODYELLOW, 0f, 1, null);
 		FillStore();
 	}
 

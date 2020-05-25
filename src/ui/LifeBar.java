@@ -34,4 +34,10 @@ public class LifeBar extends GameObject {
 
 	}
 
+	@Override
+	public boolean checkIfDead() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

@@ -16,10 +16,8 @@ public class Path {
 				graph.addEdge(i, j, worldGrid[i][j]);
 			}
 		}
-		graph.bfs(Path.VectToInt(new Vector(0, 0)));
-		graph.bfs(Path.VectToInt(new Vector(1, 1)));
-		graph.bfs(Path.VectToInt(new Vector(2, 2)));
-		graph.bfs(Path.VectToInt(new Vector(3, 3)));
+		graph.bfs(Path.VectToInt(new Vector(8, 8)));
+
 	}
 	
 	public static Vector intToVect (int index) {
