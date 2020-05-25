@@ -20,7 +20,7 @@ public class Player extends Mob {
 	public int gold = 10;
 
 	public Player(Game game, Vector position) {
-		super(game, "PLAYER", position, new Vector(1, 1), Color.DARKRED, 0.1f, 10, new Spear());
+		super(game, "PLAYER", position, new Vector(1, 1), Color.DARKRED, 0.4f, 10, new Spear());
 		game.scene.addEventFilter(KeyEvent.KEY_PRESSED, keyPressedEventHandler);
 		game.scene.addEventFilter(KeyEvent.KEY_RELEASED, keyReleasedEventHandler);
 		

@@ -11,11 +11,9 @@ public class BFS {
 
     private static class Node { 
         int lastVertex; // the ending vertex 
-        int weight; // the weight of the edge 
           
-        public Node(int lastVertex, int weight) { 
+        public Node(int lastVertex) { 
             this.lastVertex = lastVertex; 
-            this.weight = weight; 
         } 
     } 
       
@@ -28,9 +26,9 @@ public class BFS {
         } 
     } 
       
-    public void addEdge(int u, int v, int wt) { 
-        edges[u].add(edges[u].size(), new Node(v, wt)); 
-        edges[v].add(edges[v].size(), new Node(u, wt)); 
+    public void addEdge(int u, int v) { 
+        edges[u].add(new Node(v)); 
+        edges[v].add(new Node(u));
     } 
       
     public void bfs(int src) { 
@@ -48,20 +46,17 @@ public class BFS {
         while (!queue.isEmpty()) { 
             int v = queue.removeFirst(); 
             for (int i = 0; i < edges[v].size(); i++) { 
-  
+            	 System.out.println(dist[edges[v].get(i).lastVertex] + " " + (dist[v]+1));
                 // checking for optimal distance 
-                if ((dist[edges[v].get(i).lastVertex]) > (dist[v] + edges[v].get(i).weight)) { 
+                if ((dist[edges[v].get(i).lastVertex]) > (dist[v] + 1)) { 
                     // update the distance 
-                    dist[edges[v].get(i).lastVertex] = dist[v] + edges[v].get(i).weight; 
+                    dist[edges[v].get(i).lastVertex] = dist[v] + 1; 
   
                     // put 0 weight edges to front and 1 
                     // weight edges to back so that vertices 
                     // are processed in increasing order of weight 
-                    if (edges[v].get(i).weight == 0) { 
-                        queue.addFirst(edges[v].get(i).lastVertex); 
-                    } else { 
-                        queue.addLast(edges[v].get(i).lastVertex); 
-                    } 
+    
+                    queue.addLast(edges[v].get(i).lastVertex); 
                 } 
             } 
         } 
