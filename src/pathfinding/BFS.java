@@ -47,13 +47,10 @@ public class BFS {
         queue.addLast(src); 
         while (!queue.isEmpty()) { 
             int v = queue.removeFirst(); 
-            System.out.println(edges[v]);
             for (int i = 0; i < edges[v].size(); i++) { 
   
                 // checking for optimal distance 
-            	System.out.println((dist[edges[v].get(i).lastVertex]));
                 if ((dist[edges[v].get(i).lastVertex]) > (dist[v] + edges[v].get(i).weight)) { 
-                	System.out.print("distance update");
                     // update the distance 
                     dist[edges[v].get(i).lastVertex] = dist[v] + edges[v].get(i).weight; 
   
@@ -69,7 +66,7 @@ public class BFS {
             } 
         } 
         for (int i = 0; i < dist.length; i++) { 
-            //System.out.print(dist[i] + " "); 
+            System.out.print(dist[i] + " "); 
         } 
         System.out.println();
     }

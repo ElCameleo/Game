@@ -13,10 +13,52 @@ public class Path {
 		int[][] worldGrid = world.getTotalArray();
 		for (int i = 0 ; i < worldGrid.length ; i++) {
 			for (int j = 0 ; j < worldGrid.length ; j++) {
-				graph.addEdge(i, j, worldGrid[i][j]);
+		        
+		        if (worldGrid[i][j] == 1){
+		            
+		            // Diagonale haut gauche
+		            if ((worldGrid[i-1][j-1] == 1) && ((worldGrid[i-1][j] != 0) || (worldGrid[i][j-1] != 0))){
+		                graph.addEdge(Path.VectToInt(new Vector(i, j)), Path.VectToInt(new Vector(i-1, j-1)), 1);
+		            } 
+
+		            // Ouest        
+		            else if (worldGrid[i][j-1] == 1){
+		                graph.addEdge(Path.VectToInt(new Vector(i, j)), Path.VectToInt(new Vector(i, j-1)), 1);
+		            } 
+
+		            // Diagonale bas gauche        
+		            else if ((worldGrid[i+1][j-1] == 1) && ((worldGrid[i][j-1] != 0) || (worldGrid[i+1][j] != 0))){
+		                graph.addEdge(Path.VectToInt(new Vector(i, j)), Path.VectToInt(new Vector(i+1, j-1)), 1);
+		            } 
+
+		            // Nord        
+		            else if (worldGrid[i-1][j] == 1){
+		                graph.addEdge(Path.VectToInt(new Vector(i, j)), Path.VectToInt(new Vector(i-1, j)), 1);
+		            } 
+
+		            // Est        
+		            else if (worldGrid[i][j+1] == 1){
+		                graph.addEdge(Path.VectToInt(new Vector(i, j)), Path.VectToInt(new Vector(i, j+1)), 1);
+		            }
+
+		            // Diagonale haut droit        
+		            else if ((worldGrid[i-1][j+1] == 1) && ((worldGrid[i-1][j] != 0) || (worldGrid[i][j+1] != 0))){
+		                graph.addEdge(Path.VectToInt(new Vector(i, j)), Path.VectToInt(new Vector(i-1, j+1)), 1);
+		            } 
+
+		            // Sud        
+		            else if (worldGrid[i+1][j] == 1){
+		                graph.addEdge(Path.VectToInt(new Vector(i, j)), Path.VectToInt(new Vector(i+1, j)), 1);
+		            } 
+
+		            // Diagonale bas droit        
+		            else if ((worldGrid[i+1][j+1] == 1) && ((worldGrid[i+1][j] != 0) || (worldGrid[i][j+1] != 0))){
+		                graph.addEdge(Path.VectToInt(new Vector(i, j)), Path.VectToInt(new Vector(i+1, j+1)), 1);
+		            }
+		        }
 			}
 		}
-		graph.bfs(Path.VectToInt(new Vector(8, 8)));
+		graph.bfs(Path.VectToInt(new Vector(10, 10)));
 
 	}
 	

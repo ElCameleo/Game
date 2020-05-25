@@ -48,6 +48,7 @@ public class Game extends Application {
 		camera.startTranslate();
 		world.render(gc);
 		handler.process(gc);
+		gc.fillRect(10 * Renderer.CELLSIZE, 10 * Renderer.CELLSIZE, Renderer.CELLSIZE, Renderer.CELLSIZE);
 		camera.endTranslate();
 		player.weapon.render(gc, 0, 0);
 		player.bag.render(gc);
