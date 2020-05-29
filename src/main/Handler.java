@@ -25,11 +25,11 @@ public class Handler extends ArrayList<GameObject> {
 	
 	public void process(GraphicsContext gc) {
 		for (int i = this.size() - 1 ; i >= 0 ; i--) {
-        	this.get(i).update();
+			if (this.get(i).isOnScreen()) this.get(i).update();
         }
 		
 		for (GameObject obj: this) {
-        	obj.render(gc);
+			if (obj.isOnScreen()) obj.render(gc);
         }
 		for (int i = this.size() - 1 ; i >= 0 ; i--) {
         	if (this.get(i).checkIfDead()) {

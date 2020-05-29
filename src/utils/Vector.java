@@ -44,6 +44,14 @@ public class Vector {
 		return new Vector(x, y);
 	}
 	
+	public boolean equal (Vector vector) {
+		return (int) x == (int) vector.x && (int) y == (int) vector.y;
+	}
+	
+	public Vector toInt () {
+		return new Vector ((int) x, (int) y); 
+	}
+	
 	
 	
 }

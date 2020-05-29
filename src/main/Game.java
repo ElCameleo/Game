@@ -11,10 +11,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import mob.Player;
-import pathfinding.Path;
+import mob.enemy.Enemy;
+import mob.enemy.Enemy2;
+import pathfinding.PathFinding;
 import scene.Shop;
 import ui.LifeBar;
-import utils.Vector;
 import world.World;
 
 public class Game extends Application {
@@ -29,17 +30,27 @@ public class Game extends Application {
 	public Stage stage;
 	public Camera camera;
 	public LifeBar lifeBar;
+	public int count = 0;
 	
 	public void setup (GraphicsContext gc) {
 		gc.setTextAlign(TextAlignment.CENTER);
 		camera = new Camera(this, gc);
 		handler = new Handler(this);
 		world = WorldGenerator.create(this);
+		PathFinding.init(world);
 		player = new Player(this, world.getStartPosition());
 		handler.addMob(player);
 		world.populate();
-		lifeBar = new LifeBar(this, player);
-		Path.init(world);
+		lifeBar = new LifeBar(this, player);	
+	}
+	
+	public void updatePerSecond () {
+		for (GameObject obj: handler) {
+			if (obj instanceof Enemy) {
+				Enemy enemy = (Enemy) obj;
+				if (enemy.isOnScreen()) enemy.calculatePath();
+			}
+		}
 	}
 	
 	public void update (GraphicsContext gc) {
@@ -79,6 +90,10 @@ public class Game extends Application {
             @Override
 			public void handle(long currentNanoTime) {
                 update(gc);
+                if (count % 30 == 0) {
+                	updatePerSecond();
+                }
+                count++;
             }
         }.start();
         stage.show();	

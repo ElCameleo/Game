@@ -18,6 +18,22 @@ public class Border {
 		this.downRight = downRight;
 	}
 	
+	public Border (int x, int y, int w, int h) {
+		topLeft = new Vector(x, y);
+		topRight = new Vector(x + w, y);
+		downLeft = new Vector(x, y + h);
+		downRight = new Vector(x + w, y + h);
+	}
+	
+	public Border toScreenSize () {
+		return new Border(
+			topLeft.multiply(Renderer.CELLSIZE),
+			topRight.multiply(Renderer.CELLSIZE),
+			downLeft.multiply(Renderer.CELLSIZE),
+			downRight.multiply(Renderer.CELLSIZE)
+		);
+	}
+	
 	public void render (GraphicsContext gc) {
 		gc.setStroke(Color.RED);
 		gc.setLineWidth(15);
