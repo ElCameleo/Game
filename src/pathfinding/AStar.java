@@ -105,6 +105,7 @@ public class AStar {
 		int count = 0;
 		do {
 			best = path.best();
+			if (path.isEmpty()) return null;
 			point = path.get(best);
 			matrice.checkNeighbour(point, path);
 			count++;
