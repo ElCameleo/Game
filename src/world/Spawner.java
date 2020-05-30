@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 import main.Game;
 import mob.Dealer;
-import mob.enemy.Boss1;
+import mob.enemy.Dragon;
 import mob.enemy.Enemy;
-import mob.enemy.Enemy1;
-import mob.enemy.Enemy2;
-import mob.enemy.Enemy3;
+import mob.enemy.Goblin;
+import mob.enemy.Boar;
+import mob.enemy.Wizard;
 import utils.Vector;
 
 public class Spawner {
@@ -66,7 +66,7 @@ public class Spawner {
 		int currentDifficulty = 0;
 		while (maxDifficulty > currentDifficulty && availableZone.size() > 0) {
 			Vector pos = getRandomPos();
-			Enemy enemy = new Enemy[] { new Enemy1(game, pos), new Enemy2(game, pos), new Enemy3(game, pos) } [(int) (Math.random() * 3)];
+			Enemy enemy = new Enemy[] { new Goblin(game, pos), new Boar(game, pos), new Wizard(game, pos) } [(int) (Math.random() * 3)];
 			game.handler.add(enemy);
 			currentDifficulty += enemy.difficulty;
 		}
@@ -74,7 +74,7 @@ public class Spawner {
 	
 	public void addEnemyBossRoom() {
 		Vector pos = getRandomPos();
-		if (pos != null) game.handler.add(new Boss1(game, pos));
+		if (pos != null) game.handler.add(new Dragon(game, pos));
 	}
 	
 	public void addEnemyLootRoom() {

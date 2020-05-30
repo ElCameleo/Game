@@ -1,11 +1,12 @@
 package item.potion;
 
-import java.awt.event.ActionEvent;
+
 import java.awt.event.ActionListener;
+import java.util.Timer;
 
-import javax.swing.Timer;
-
+import javafx.event.ActionEvent;
 import main.Game;
+import utils.Vector;
 
 public class PowerPotion extends Potion {
 	int price;
@@ -28,5 +29,9 @@ public class PowerPotion extends Potion {
 	@Override
 	public void apply() {
 		timerOnPotionEffects ();
+		Vector potion = new Vector(32, 32);
+		Vector monster = new Vector(48, 48);
+		Vector floor = new Vector(96, 96);
+		Vector boss = new Vector(96, 96);
 	}
 }

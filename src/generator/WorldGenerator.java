@@ -229,7 +229,7 @@ public class WorldGenerator {
 		generateRoom(rooms.get(index)[0],rooms.get(index)[1],0);
 		rooms.remove(index);
 		index = r.nextInt(rooms.size());
-		etage[rooms.get(index)[0]][rooms.get(index)[1]].setType(RoomType.END);
+		etage[rooms.get(index)[0]][rooms.get(index)[1]].setType(RoomType.BOSS);
 	}
 	
 	public void printEtage() {
@@ -285,7 +285,7 @@ public class WorldGenerator {
 						depart[0] = i;
 						depart[1] = j;
 					}
-					if(world[i][j].type == RoomType.END) {
+					if(world[i][j].type == RoomType.BOSS) {
 						arrive[0] = i;
 						arrive[1] = j;
 					}

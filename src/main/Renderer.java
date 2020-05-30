@@ -11,7 +11,7 @@ public class Renderer {
 		public static float SIZE = 50;
 		public static float PADDING_RIGHT = 80;
 		public static float PADDING_UP = 50;
-		public static float PADDING = 10;
+		public static float PADDING = 40;
 		
 	}
 

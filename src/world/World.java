@@ -68,7 +68,7 @@ public class World {
 			for (int j = 0 ; j < World.SIZE ; j++) {
 				for (int k = 0 ; k < Room.SIZE ; k++) {
 					for (int l = 0 ; l < Room.SIZE ; l++) {
-						world[(int) (i * Room.SIZE + k)][(int) (j * Room.SIZE + l)] = rooms[i][j].grid[k][l];
+						world[(int) (i * Room.SIZE + k)][(int) (j * Room.SIZE + l)] = rooms[i][j].grid[k][l].value;
 					}
 				}
 			}

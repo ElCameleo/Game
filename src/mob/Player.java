@@ -8,6 +8,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import main.Assets;
 import main.Game;
 import main.GameObject;
 import scene.Shop;
@@ -20,7 +21,7 @@ public class Player extends Mob {
 	public int gold = 10;
 
 	public Player(Game game, Vector position) {
-		super(game, "PLAYER", position, new Vector(1, 1), Color.DARKRED, 0.4f, 10, new Spear());
+		super(game, "PLAYER", position, new Vector(1, 1), Assets.PLAYER, 0.4f, 10, new Hand());
 		game.scene.addEventFilter(KeyEvent.KEY_PRESSED, keyPressedEventHandler);
 		game.scene.addEventFilter(KeyEvent.KEY_RELEASED, keyReleasedEventHandler);
 		
@@ -48,6 +49,8 @@ public class Player extends Mob {
     
     public void makeAction () {
     	if (!openShop()) {
+    		if (!weapon.canAttack()) return;
+    		weapon.resetCount();
     		game.handler.add(new DamageZone(game, this));
     	}
     }

@@ -2,8 +2,7 @@ package generator;
 
 import java.util.Random;
 
-import utils.Vector;
-import world.Room;
+import world.Cell;
 import world.Room.RoomType;
 
 public class RoomGenerator {
@@ -172,6 +171,16 @@ public class RoomGenerator {
 	
 	public Integer[][] getSurface(){
 		return surface;
+	}
+	
+	public Cell[][] getCellSurface() {
+		Cell[][] cells = new Cell[surface.length][surface.length];
+		for (int i = 0 ; i < surface.length ; i++) {
+			for (int j = 0 ; j < surface.length ; j++) {
+				cells[i][j] = new Cell (surface[i][j]);
+			}
+		}
+		return cells;
 	}
 
 	public void setType(RoomType type) {

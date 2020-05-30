@@ -3,6 +3,7 @@ package world;
 import generator.RoomGenerator;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import main.Assets;
 import main.Game;
 import main.Renderer;
 import utils.Border;
@@ -24,7 +25,7 @@ public class Room {
 	};
 	public RoomType type;
 	
-	public Integer[][] grid;
+	public Cell[][] grid;
 	public Integer difficulty;
 	
 	private Spawner spawner;
@@ -32,9 +33,14 @@ public class Room {
 	private Vector delta;
 	
 	public Room (RoomGenerator room, Game game, Vector delta) {
-		this.grid = room.getSurface();
+		this.grid = room.getCellSurface();
 		this.difficulty = room.getDifficulty();
 		this.type = room.getType();
+		for (int i = 0; i < grid.length ; i++) {
+			for (int j = 0 ; j < grid.length ; j++) {
+				grid[i][j].setImageByRoomType(type);
+			}
+		}
 		this.game = game;
 		this.delta = delta;
 	}
@@ -44,7 +50,7 @@ public class Room {
 	}
 	
 	public boolean isGround (Vector pos) {
-		return grid[(int) pos.x][(int) pos.y] == 1;
+		return grid[(int) pos.x][(int) pos.y].value == 1;
 	}
 	
 	public Border getBorder (Vector topLeft) {
@@ -68,8 +74,9 @@ public class Room {
 		
 		for (int i = 0 ; i < grid.length ; i++) {
 			for (int j = 0 ; j < grid.length ; j++) {
-				if (grid[i][j] == 1) {
-					FillStroke.rect(gc, i * Renderer.CELLSIZE, j * Renderer.CELLSIZE, Renderer.CELLSIZE, Renderer.CELLSIZE);
+				if (grid[i][j].value == 1) {
+					gc.drawImage(grid[i][j].img, i * Renderer.CELLSIZE, j * Renderer.CELLSIZE, Renderer.CELLSIZE, Renderer.CELLSIZE);
+					//FillStroke.rect(gc, i * Renderer.CELLSIZE, j * Renderer.CELLSIZE, Renderer.CELLSIZE, Renderer.CELLSIZE);
 				} 
 			}
 		}

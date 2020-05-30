@@ -12,7 +12,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import mob.Player;
 import mob.enemy.Enemy;
-import mob.enemy.Enemy2;
+import mob.enemy.Boar;
 import pathfinding.PathFinding;
 import scene.Shop;
 import ui.LifeBar;
@@ -29,10 +29,10 @@ public class Game extends Application {
 	public Shop shop;
 	public Stage stage;
 	public Camera camera;
-	public LifeBar lifeBar;
 	public int count = 0;
 	
 	public void setup (GraphicsContext gc) {
+		Assets.init();
 		gc.setTextAlign(TextAlignment.CENTER);
 		camera = new Camera(this, gc);
 		handler = new Handler(this);
@@ -40,8 +40,7 @@ public class Game extends Application {
 		PathFinding.init(world);
 		player = new Player(this, world.getStartPosition());
 		handler.addMob(player);
-		world.populate();
-		lifeBar = new LifeBar(this, player);	
+		world.populate();	
 	}
 	
 	public void updatePerSecond () {
@@ -59,12 +58,9 @@ public class Game extends Application {
 		camera.startTranslate();
 		world.render(gc);
 		handler.process(gc);
-		gc.setFill(Color.DARKGREY);
-		gc.fillRect(10 * Renderer.CELLSIZE, 10 * Renderer.CELLSIZE, Renderer.CELLSIZE, Renderer.CELLSIZE);
 		camera.endTranslate();
 		player.weapon.render(gc, 0, 0);
 		player.bag.render(gc);
-		lifeBar.render(gc);
 	}
 	
 	@Override
@@ -77,7 +73,6 @@ public class Game extends Application {
 		StackPane root = new StackPane();
         scene = new Scene(root);
         stage.setScene(scene);
-       
         
         Canvas canvas = new Canvas(Renderer.WIDTH, Renderer.HEIGHT);
         root.getChildren().add(canvas);

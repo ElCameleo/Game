@@ -52,6 +52,10 @@ public class Vector {
 		return new Vector ((int) x, (int) y); 
 	}
 	
+	public static Vector middle (Vector vec1, Vector vec2) {
+		return new Vector ((vec1.x + vec2.x) / 2, (vec1.y + vec2.y) / 2);
+	}
+	
 	
 	
 }

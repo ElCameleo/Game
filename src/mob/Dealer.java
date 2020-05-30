@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import item.potion.*;
 import item.Item;
 import javafx.scene.paint.Color;
+import main.Assets;
 import main.Game;
 import utils.Vector;
 
@@ -21,7 +22,7 @@ public class Dealer extends Mob {
 	
 	private ArrayList<Possession> store = new ArrayList<>();
 	public Dealer(Game game, Vector position) {
-		super(game, "DEALER", position, new Vector(1, 1), Color.LIGHTGOLDENRODYELLOW, 0f, 1, null);
+		super(game, "DEALER", position, new Vector(1, 1), Assets.DEALER, 0f, 1, null);
 		FillStore();
 	}
 
