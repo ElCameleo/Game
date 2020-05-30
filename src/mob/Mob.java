@@ -12,7 +12,7 @@ import utils.Vector;
 
 public abstract class Mob extends GameObject {
 	
-	private WritableImage img;
+	protected WritableImage img;
 	protected float speed;
 	public Weapon weapon;
 	public float life, maxLife;

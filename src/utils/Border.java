@@ -3,6 +3,7 @@ package utils;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import main.Renderer;
+import mob.Mob;
 
 public class Border {
 	
@@ -17,6 +18,7 @@ public class Border {
 		this.downLeft = downLeft;
 		this.downRight = downRight;
 	}
+	
 	
 	public Border (int x, int y, int w, int h) {
 		topLeft = new Vector(x, y);

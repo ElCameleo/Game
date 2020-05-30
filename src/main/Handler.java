@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javafx.scene.canvas.GraphicsContext;
 import mob.Mob;
+import mob.enemy.Enemy;
 import utils.Border;
 import utils.Collision;
 import utils.Vector;
@@ -11,6 +12,7 @@ import utils.Vector;
 public class Handler extends ArrayList<GameObject> {
 	
 	private Game game;
+	public int mobCount = 0;
 	
 	public Handler (Game game) {
 		this.game = game;
@@ -33,13 +35,22 @@ public class Handler extends ArrayList<GameObject> {
         }
 		for (int i = this.size() - 1 ; i >= 0 ; i--) {
         	if (this.get(i).checkIfDead()) {
+        		if (this.get(i) instanceof Enemy) {
+        			mobCount--;
+        			game.player.gold += game.level;
+        		}
         		remove(i);
         	}
         }
 	}
 	
 	public void addMob (Mob mob) {
+		if (mob instanceof Enemy) mobCount++;
 		this.add(mob);
+	}
+	
+	public void reset () {
+		
 	}
 	
 	public boolean collide (Border border1, Border border2) {

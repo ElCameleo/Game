@@ -7,6 +7,6 @@ import utils.Vector;
 
 public class Wizard extends Enemy {
 	public Wizard(Game game, Vector position) {
-		super(game, "Enemy3", position, new Vector(1, 1), Assets.WIZARD, 0.02f, 4, 1.8f, new Spell());
+		super(game, "WIZARD", position, new Vector(1, 1), Assets.WIZARD, 0.02f, 4, 2.2f, new Spell());
 	}
 }

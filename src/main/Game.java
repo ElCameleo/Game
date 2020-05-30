@@ -8,14 +8,15 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import mob.Dealer;
 import mob.Player;
 import mob.enemy.Enemy;
-import mob.enemy.Boar;
 import pathfinding.PathFinding;
 import scene.Shop;
-import ui.LifeBar;
+import utils.Vector;
 import world.World;
 
 public class Game extends Application {
@@ -30,6 +31,8 @@ public class Game extends Application {
 	public Stage stage;
 	public Camera camera;
 	public int count = 0;
+	
+	public int level = 1;
 	
 	public void setup (GraphicsContext gc) {
 		Assets.init();
@@ -61,6 +64,22 @@ public class Game extends Application {
 		camera.endTranslate();
 		player.weapon.render(gc, 0, 0);
 		player.bag.render(gc);
+		gc.setFont(new Font("Verdana", 20));
+		gc.setFill(Color.WHITE);
+		gc.fillText("Nombre d'ennemis restant : " + handler.mobCount, 180, 60);
+		gc.setFill(Color.GOLD);
+		gc.fillText("OR : " + player.gold, 180, 90);
+		
+		if (handler.mobCount == 0) {
+			this.player.updateMaxLife();
+			level++;
+			handler.clear();
+			world = WorldGenerator.create(this);
+			PathFinding.init(world);
+			player.setPosition(world.getStartPosition());
+			handler.addMob(player);
+			world.populate();
+		}
 	}
 	
 	@Override

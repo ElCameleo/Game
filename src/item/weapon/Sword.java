@@ -3,7 +3,6 @@ package item.weapon;
 public class Sword extends Weapon {
 	int durability;
 	public Sword() {
-		super("SWORD", 7,10, 10);
+		super("Epée", 7,10, 10, 1, 15);
 	}
-
 }

@@ -10,8 +10,8 @@ public class Assets {
 
 	private static SpriteSheet bossSpriteSheet, floorSpriteSheet, playerMonsterSpriteSheet, potionSpriteSheet;
 	public static List<WritableImage> GROUND_NORMAL, GROUND_LOOT, GROUND_BOSS, GROUND_START;
-	public static WritableImage DEALER, PLAYER, GOBLIN, BOAR, WIZARD;
-	public static WritableImage DRAGON;
+	public static WritableImage DEALER, PLAYER, GOBLIN, BOAR, WIZARD, SPIDER, SKELETON, ZOMBIE, GHOST;
+	public static WritableImage WHITE_DRAGON, BLACK_DRAGON, MEGA_GOBLIN, MINOTAURE, RED_DRAGON;
 	
 	public static void init () {
 		bossSpriteSheet = new SpriteSheet("file:src/ressource/images/Boss.png", 288, 288, 96, 96);
@@ -53,8 +53,16 @@ public class Assets {
 		GOBLIN = playerMonsterSpriteSheet.get(0, 2);
 		BOAR = playerMonsterSpriteSheet.get(5, 2);
 		WIZARD = playerMonsterSpriteSheet.get(3, 7);
+		SPIDER = playerMonsterSpriteSheet.get(1, 4);
+		SKELETON = playerMonsterSpriteSheet.get(6, 6);
+		ZOMBIE = playerMonsterSpriteSheet.get(5, 7);
+		GHOST = playerMonsterSpriteSheet.get(0, 7);
 		
-		DRAGON = bossSpriteSheet.get(0, 1);
+		WHITE_DRAGON = bossSpriteSheet.get(1, 1);
+		BLACK_DRAGON = bossSpriteSheet.get(0, 1);
+		MEGA_GOBLIN = bossSpriteSheet.get(0, 2);
+		MINOTAURE = bossSpriteSheet.get(2, 2);
+		RED_DRAGON = bossSpriteSheet.get(1, 0);
 	}
 
 }

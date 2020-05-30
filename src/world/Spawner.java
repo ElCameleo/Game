@@ -4,11 +4,18 @@ import java.util.ArrayList;
 
 import main.Game;
 import mob.Dealer;
-import mob.enemy.Dragon;
-import mob.enemy.Enemy;
-import mob.enemy.Goblin;
 import mob.enemy.Boar;
+import mob.enemy.Enemy;
+import mob.enemy.Ghost;
+import mob.enemy.Goblin;
+import mob.enemy.MegaGoblin;
+import mob.enemy.Minotaure;
+import mob.enemy.RedDragon;
+import mob.enemy.Skeleton;
+import mob.enemy.Spider;
+import mob.enemy.WhiteDragon;
 import mob.enemy.Wizard;
+import mob.enemy.Zombie;
 import utils.Vector;
 
 public class Spawner {
@@ -24,17 +31,17 @@ public class Spawner {
 		this.game = game;
 
 		createAvailableZones(delta);
-		addEnemy();
+		addEnemy(delta);
 	}
 	
 	public int getDifficultyByRoomLevel () {
-		return 4;
+		return room.difficulty * (game.level);
 	}
 	
 	public void createAvailableZones (Vector delta) {
 		for (int i = 0 ; i < CHUNK_SIZE ; i++) {
 			for (int j = 0 ; j < CHUNK_SIZE ; j++) {
-				Vector pos = new Vector (((i+0.5f) * Room.SIZE / CHUNK_SIZE), (j+0.0f) * Room.SIZE / CHUNK_SIZE);
+				Vector pos = new Vector ((int) (i * Room.SIZE / CHUNK_SIZE),(int) (j * Room.SIZE / CHUNK_SIZE));
 				if (room.isGround(pos)) availableZone.add(pos.add(delta));
 			}
 		}
@@ -51,14 +58,25 @@ public class Spawner {
 		}
 	}
 	
-	public void addEnemy () {
+	public void addEnemy (Vector delta) {
 		switch (room.type) {
 			case NORMAL: addEnemyNormalRoom(); break;
-			case BOSS: addEnemyBossRoom(); break;
-			case LOOT: addEnemyLootRoom(); break;
+			case BOSS: addEnemyBossRoom(delta); break;
+			case LOOT: addEnemyLootRoom(delta); break;
 			case START: break;
 			case END: break;
 		}	
+	}
+	
+	private Enemy getEnemy (Vector pos) {
+		switch (game.level) {
+			case 1: return new Enemy[] { new Goblin(game, pos), new Boar(game, pos) } [(int) (Math.random() * 2)]; 
+			case 2: return new Enemy[] { new Goblin(game, pos), new Boar(game, pos), new Wizard(game, pos) } [(int) (Math.random() * 3)];
+			case 3: return new Enemy[] { new Wizard(game, pos), new Spider(game, pos), new Skeleton(game, pos) } [(int) (Math.random() * 3)];
+			case 4: return new Enemy[] { new Spider(game, pos), new Skeleton(game, pos), new Zombie(game, pos) } [(int) (Math.random() * 3)];
+			case 5: return new Enemy[] { new Skeleton(game, pos), new Zombie(game, pos), new Ghost(game, pos) } [(int) (Math.random() * 3)];
+		}
+		return null;
 	}
 	
 	public void addEnemyNormalRoom () {
@@ -66,19 +84,26 @@ public class Spawner {
 		int currentDifficulty = 0;
 		while (maxDifficulty > currentDifficulty && availableZone.size() > 0) {
 			Vector pos = getRandomPos();
-			Enemy enemy = new Enemy[] { new Goblin(game, pos), new Boar(game, pos), new Wizard(game, pos) } [(int) (Math.random() * 3)];
-			game.handler.add(enemy);
+			Enemy enemy = getEnemy(pos);
+			game.handler.addMob(enemy);
 			currentDifficulty += enemy.difficulty;
 		}
 	}
 	
-	public void addEnemyBossRoom() {
-		Vector pos = getRandomPos();
-		if (pos != null) game.handler.add(new Dragon(game, pos));
+	public void addEnemyBossRoom(Vector delta) {
+		Vector pos = new Vector((int) (0.5f* Room.SIZE), (int)(0.5f* Room.SIZE));
+		switch (game.level) {
+			case 1: game.handler.addMob(new WhiteDragon(game, pos.add(delta))); break;
+			case 2: game.handler.addMob(new RedDragon(game, pos.add(delta))); break;
+			case 3: game.handler.addMob(new MegaGoblin(game, pos.add(delta))); break;
+			case 4: game.handler.addMob(new Minotaure(game, pos.add(delta))); break;
+			case 5: game.handler.addMob(new RedDragon(game, pos.add(delta))); break;
+		}
+		
 	}
 	
-	public void addEnemyLootRoom() {
-		Vector pos = getRandomPos();
-		if (pos != null) game.handler.add(new Dealer(game, pos));
+	public void addEnemyLootRoom(Vector delta) {
+		Vector pos = new Vector((int) (0.5f* Room.SIZE), (int)(0.5f* Room.SIZE));
+		game.handler.addMob(new Dealer(game, pos.add(delta)));
 	}
 }

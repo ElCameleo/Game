@@ -1,13 +1,12 @@
 package mob;
 
-import item.potion.Bag;
+import item.Bag;
+import item.weapon.DindonSword;
 import item.weapon.Hand;
-import item.weapon.Spear;
 import item.weapon.Weapon;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
 import main.Assets;
 import main.Game;
 import main.GameObject;
@@ -21,7 +20,7 @@ public class Player extends Mob {
 	public int gold = 10;
 
 	public Player(Game game, Vector position) {
-		super(game, "PLAYER", position, new Vector(1, 1), Assets.PLAYER, 0.4f, 10, new Hand());
+		super(game, "PLAYER", position, new Vector(1, 1), Assets.PLAYER, 0.1f, 60, new Hand());
 		game.scene.addEventFilter(KeyEvent.KEY_PRESSED, keyPressedEventHandler);
 		game.scene.addEventFilter(KeyEvent.KEY_RELEASED, keyReleasedEventHandler);
 		
@@ -61,8 +60,7 @@ public class Player extends Mob {
     			if (Vector.dist(this.position, obj.getPosition()) < 3) {
     				Shop shop = new Shop(10);
     				Scene shopScene = new Scene(shop);
-    				shop.printStore((Dealer) obj, this.bag);
-    				shop.setGame(game);
+    				shop.printStore(game, (Dealer) obj);
     				game.stage.setScene(shopScene);
     				return true;
     			}
@@ -85,5 +83,14 @@ public class Player extends Mob {
 		if(weapon.getDurability() == 0) {  //Penser à enlever -1 en durabilité à chaque appel de la fonction attaquer() dans player
 			this.weapon = new Hand(); 
 		}
+	}
+	
+	public void addSpeed (float speed) {
+		this.speed += speed;
+	}
+	
+	public void updateMaxLife () {
+		maxLife += 20;
+		life = maxLife;
 	}
 }

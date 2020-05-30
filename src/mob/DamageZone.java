@@ -15,7 +15,7 @@ public class DamageZone extends GameObject {
 	private Weapon w;
 
 	public DamageZone(Game game, Mob mob) {
-		super(game, "DAMAGE_ZONE", mob.getZone(), new Vector(1, 1));
+		super(game, "DAMAGE_ZONE", mob.getZone(), new Vector(mob.weapon.radius, mob.weapon.radius));
 		border = calculBorders();
 		w = mob.weapon;
 		if (mob.name == "PLAYER") {

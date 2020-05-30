@@ -6,12 +6,11 @@ import main.Game;
 public abstract class Potion extends Item {
 	
 	protected Game game;
-	private int price;
-	
-	public Potion(String name, Game game, int price) {
-		super(name);
+	public String description;
+	public Potion(String name, Game game, int price, String description) {
+		super(name, price);
 		this.game = game;
-		this.price = price;
+		this.description = description;
 	}
 	
 	public abstract void apply ();

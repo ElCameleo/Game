@@ -2,15 +2,18 @@ package item;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import main.Renderer;
 import utils.Vector;
 
 public abstract class Item {
 
 	public String name;
+	public int price;
 	
-	public Item(String name) {
+	public Item(String name, int price) {
 		this.name = name;
+		this.price = price;
 	}
 	
 	public Vector calculTopLeft (float x, float y) {
@@ -27,13 +30,15 @@ public abstract class Item {
 	}
 	
 	public void render(GraphicsContext gc, float x, float y) {
-		gc.setStroke(Color.ANTIQUEWHITE);
-		gc.setFill(Color.MAGENTA);
+		gc.setStroke(Color.WHITE);
+		gc.setFill(Color.GREY);
 		
 		Vector pos = calculTopLeft (x, y);
 		
 		gc.fillRect(pos.x, pos.y, Renderer.Item.SIZE, Renderer.Item.SIZE);
 		gc.strokeRect(pos.x, pos.y, Renderer.Item.SIZE, Renderer.Item.SIZE);
-		gc.strokeText(name, pos.x + Renderer.Item.SIZE/2, pos.y + Renderer.Item.SIZE/2);
+		gc.setFont(new Font("Verdana", 10));
+		gc.setFill(Color.WHITE);
+		gc.fillText(name, pos.x + Renderer.Item.SIZE/2, pos.y + Renderer.Item.SIZE/2);
 	}
 }

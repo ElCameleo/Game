@@ -1,7 +1,9 @@
-package item.potion;
+package item;
 
 import java.util.ArrayList;
 
+import item.potion.LifePotion1;
+import item.potion.Potion;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import main.Game;
@@ -24,12 +26,6 @@ public class Bag extends ArrayList<Potion> {
 				}
 			}
 		});
-		
-		this.addPotion(new LifePotion(game));
-		this.addPotion(new LifePotion(game));
-		this.addPotion(new LifePotion(game));
-		this.addPotion(new LifePotion(game));
-		this.addPotion(new LifePotion(game));
 	}
 	
 	public boolean addPotion (Potion potion) {

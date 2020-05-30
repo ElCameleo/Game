@@ -3,7 +3,7 @@ package item.weapon;
 public class Hand extends Weapon {
 
 	public Hand() {
-		super("HAND", 2, -1, 8); //durabilité négative pour traduire durabilité infinie
+		super("Poing", 4, -1, 8, 0.8f, 0); 
 	}
 
 }
