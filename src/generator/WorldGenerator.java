@@ -24,18 +24,26 @@ public class WorldGenerator {
 		map =  new Integer[hauteur][largeur];
 		
 		int nbSalle = 0;
-		while(nbSalle<(hauteur*largeur)/2) {
+		int nbImpasse = 0;
+		
+		while(nbSalle < (hauteur*largeur)/2 || nbSalle<5 || nbImpasse<3) {
 			createMap();
 			nbSalle = 0;
+			nbImpasse = 0;
+			
 			for(int i = 0; i<hauteur;i++) {
 				for(int j = 0; j<largeur;j++) {
 					if(map[i][j]!=0) {
 						nbSalle+=1;
 					}
+					if(map[i][j]==1 || map[i][j]==2 || map[i][j]==4 || map[i][j]==8) {
+						nbImpasse+=1;
+					}
 				}
 			}
 		}
-		
+		System.out.println(nbSalle);
+		System.out.println(nbImpasse);
 		createEtage();
 	}
 	
