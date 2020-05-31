@@ -50,6 +50,7 @@ public class Room {
 	}
 	
 	public boolean isGround (Vector pos) {
+		if (pos.x < 0 || pos.y < 0 || pos.y >= SIZE || pos.x > SIZE)return false;
 		return grid[(int) pos.x][(int) pos.y].value == 1;
 	}
 	

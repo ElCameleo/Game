@@ -20,7 +20,7 @@ public class Player extends Mob {
 	public int gold = 10;
 
 	public Player(Game game, Vector position) {
-		super(game, "PLAYER", position, new Vector(1, 1), Assets.PLAYER, 0.1f, 60, new Hand());
+		super(game, "PLAYER", position, new Vector(1, 1), Assets.PLAYER, 0.1f, 80, new Hand());
 		game.scene.addEventFilter(KeyEvent.KEY_PRESSED, keyPressedEventHandler);
 		game.scene.addEventFilter(KeyEvent.KEY_RELEASED, keyReleasedEventHandler);
 		
@@ -90,7 +90,7 @@ public class Player extends Mob {
 	}
 	
 	public void updateMaxLife () {
-		maxLife += 20;
+		maxLife += 30;
 		life = maxLife;
 	}
 }

@@ -49,7 +49,7 @@ public class Dealer extends Mob {
 			case 2: return Arrays.asList(new LifePotion1(game), new SpeedPotion1(game), new BoostWeapon1(game), new Ax(), new Sword());
 			case 3: return Arrays.asList(new LifePotion2(game), new SpeedPotion2(game), new BoostWeapon1(game), new Ax(), new DarkSword());
 			case 4: return Arrays.asList(new LifePotion2(game), new SpeedPotion2(game), new BoostWeapon2(game), new DarkSword(), new ExplosiveFist());
-			case 5: return Arrays.asList(new LifePotion3(game), new SpeedPotion2(game), new BoostWeapon3(game), new DarkSword(), new DindonSword());
+			case 5: return Arrays.asList(new LifePotion3(game), new SpeedPotion2(game), new BoostWeapon3(game), new EternitySword(), new DindonSword());
 		}
 		return null;
 		
@@ -57,7 +57,7 @@ public class Dealer extends Mob {
 	
 	public void FillStore() {
 		List<Item> list = getItemList();
-		for (int i = 0 ; i < 3 ; i++) {
+		for (int i = 0 ; i < 5 ; i++) {
 			int index = (int) (Math.random() * list.size());
 			Item item = list.get(index);
 			store.add(item);

@@ -8,7 +8,6 @@ import utils.Vector;
 public class RedDragon extends Enemy {
 
 	public RedDragon(Game game, Vector position) {
-		super(game, "RED_DRAGON", position, new Vector(2.5f, 2.5f), Assets.RED_DRAGON, 0.02f, 100, 3, new MegaFire());
+		super(game, "RED_DRAGON", position, new Vector(2.5f, 2.5f), Assets.RED_DRAGON, 0.02f, 500, 3, new MegaFire());
 	}
-
 }

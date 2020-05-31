@@ -27,6 +27,13 @@ public class Border {
 		downRight = new Vector(x + w, y + h);
 	}
 	
+	public Border (Mob mob) {
+		topLeft = new Vector (mob.getPosition().x - mob.getSize().x/2, mob.getPosition().y - mob.getSize().y/2);
+		topRight = new Vector (mob.getPosition().x + mob.getSize().x/2, mob.getPosition().y - mob.getSize().y/2);
+		downLeft = new Vector (mob.getPosition().x - mob.getSize().x/2, mob.getPosition().y + mob.getSize().y/2);
+		downRight = new Vector (mob.getPosition().x + mob.getSize().x/2, mob.getPosition().y + mob.getSize().y/2);
+	}
+	
 	public Border toScreenSize () {
 		return new Border(
 			topLeft.multiply(Renderer.CELLSIZE),

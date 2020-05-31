@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import main.Game;
 import mob.Dealer;
+import mob.enemy.BlackDragon;
 import mob.enemy.Boar;
 import mob.enemy.Enemy;
 import mob.enemy.Ghost;
@@ -16,6 +17,7 @@ import mob.enemy.Spider;
 import mob.enemy.WhiteDragon;
 import mob.enemy.Wizard;
 import mob.enemy.Zombie;
+import utils.Border;
 import utils.Vector;
 
 public class Spawner {
@@ -42,7 +44,8 @@ public class Spawner {
 		for (int i = 0 ; i < CHUNK_SIZE ; i++) {
 			for (int j = 0 ; j < CHUNK_SIZE ; j++) {
 				Vector pos = new Vector ((int) (i * Room.SIZE / CHUNK_SIZE),(int) (j * Room.SIZE / CHUNK_SIZE));
-				if (room.isGround(pos)) availableZone.add(pos.add(delta));
+				Border border = new Border((int)pos.x - 1, (int)pos.y - 1, 2, 2);
+				if (room.isGround(border.topLeft) && room.isGround(border.topRight) && room.isGround(border.downLeft) && room.isGround(border.downRight)) availableZone.add(pos.add(delta));
 			}
 		}
 	}
@@ -94,7 +97,7 @@ public class Spawner {
 		Vector pos = new Vector((int) (0.5f* Room.SIZE), (int)(0.5f* Room.SIZE));
 		switch (game.level) {
 			case 1: game.handler.addMob(new WhiteDragon(game, pos.add(delta))); break;
-			case 2: game.handler.addMob(new RedDragon(game, pos.add(delta))); break;
+			case 2: game.handler.addMob(new BlackDragon(game, pos.add(delta))); break;
 			case 3: game.handler.addMob(new MegaGoblin(game, pos.add(delta))); break;
 			case 4: game.handler.addMob(new Minotaure(game, pos.add(delta))); break;
 			case 5: game.handler.addMob(new RedDragon(game, pos.add(delta))); break;
