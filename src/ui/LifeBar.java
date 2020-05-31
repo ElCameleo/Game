@@ -25,7 +25,7 @@ public class LifeBar extends GameObject {
 
 	@Override
 	public void render(GraphicsContext gc) {
-		float ratio = mob.life / mob.maxLife;
+		float ratio = (mob.life < 0 ? 0 : mob.life)  / mob.maxLife;
 		/*
 		gc.setFill(Color.GREEN);
 		gc.fillRect(position.x, position.y, ratio * size.x, size.y);

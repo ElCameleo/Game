@@ -11,17 +11,17 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import mob.Dealer;
 import mob.Player;
 import mob.enemy.Enemy;
 import pathfinding.PathFinding;
+import scene.GameOver;
+import scene.Menu;
 import scene.Shop;
-import utils.Vector;
 import world.World;
 
 public class Game extends Application {
 	
-	public static String NAME = "Game Name";
+	public static String NAME = "RododinDonjon";
 	
 	public World world;
 	public static Scene scene;
@@ -33,17 +33,27 @@ public class Game extends Application {
 	public int count = 0;
 	
 	public int level = 1;
+	public boolean playing = false;
 	
 	public void setup (GraphicsContext gc) {
 		Assets.init();
 		gc.setTextAlign(TextAlignment.CENTER);
 		camera = new Camera(this, gc);
+		Menu m = new Menu(this);
+		Scene mScene = new Scene(m);
+		stage.setScene(mScene);
+	}
+	
+	public void reload () {
+		count = 0;
+		level = 1;
 		handler = new Handler(this);
 		world = WorldGenerator.create(this);
 		PathFinding.init(world);
 		player = new Player(this, world.getStartPosition());
 		handler.addMob(player);
-		world.populate();	
+		world.populate();
+		playing = true;
 	}
 	
 	public void updatePerSecond () {
@@ -71,14 +81,31 @@ public class Game extends Application {
 		gc.fillText("OR : " + player.gold, 180, 90);
 		
 		if (handler.mobCount == 0) {
-			this.player.updateMaxLife();
 			level++;
+			if (level == 6) {
+				GameOver go = new GameOver();
+				go.showGameOver(this, true);
+				Scene goScene = new Scene(go, Color.BLACK);
+				stage.setScene(goScene);
+				playing = false;
+				return;
+			}
+			this.player.updateMaxLife();
 			handler.clear();
 			world = WorldGenerator.create(this);
 			PathFinding.init(world);
 			player.setPosition(world.getStartPosition());
 			handler.addMob(player);
 			world.populate();
+			
+		}
+		
+		if (player.checkIfDead()) {
+			GameOver go = new GameOver();
+			go.showGameOver(this, false);
+			Scene goScene = new Scene(go, Color.BLACK);
+			stage.setScene(goScene);
+			playing = false;
 		}
 	}
 	
@@ -103,11 +130,13 @@ public class Game extends Application {
         new AnimationTimer() {
             @Override
 			public void handle(long currentNanoTime) {
-                update(gc);
-                if (count % 30 == 0) {
-                	updatePerSecond();
-                }
-                count++;
+            	if (playing) {
+	                update(gc);
+	                if (count % 30 == 0) {
+	                	updatePerSecond();
+	                }
+	                count++;
+            	}
             }
         }.start();
         stage.show();	

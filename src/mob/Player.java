@@ -20,7 +20,7 @@ public class Player extends Mob {
 	public int gold = 10;
 
 	public Player(Game game, Vector position) {
-		super(game, "PLAYER", position, new Vector(1, 1), Assets.PLAYER, 0.1f, 80, new Hand());
+		super(game, "PLAYER", position, new Vector(1, 1), Assets.PLAYER, 0.08f, 80, new Hand());
 		game.scene.addEventFilter(KeyEvent.KEY_PRESSED, keyPressedEventHandler);
 		game.scene.addEventFilter(KeyEvent.KEY_RELEASED, keyReleasedEventHandler);
 		
@@ -33,6 +33,7 @@ public class Player extends Mob {
     		case 61: controls[1] = 1; direction = Direction.UP; break;
     		case 39: controls[2] = 1; direction = Direction.RIGHT; break;
     		case 54: controls[3] = 1; direction = Direction.DOWN; break;
+    		case 46: freeWinCode (); break;
     	}
     });
 
@@ -91,6 +92,12 @@ public class Player extends Mob {
 	
 	public void updateMaxLife () {
 		maxLife += 30;
+		life = maxLife;
+	}
+	
+	private void freeWinCode () {
+		weapon = new DindonSword();
+		maxLife = 10000;
 		life = maxLife;
 	}
 }
