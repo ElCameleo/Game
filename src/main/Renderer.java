@@ -1,10 +1,12 @@
 package main;
 
+import javafx.stage.Screen;
+
 public class Renderer {
 	
-	public static final float WIDTH = 1000;
-	public static final float HEIGHT = 750;
-	public static final float CELLSIZE = 40;
+	public static final float WIDTH = (float) Screen.getPrimary().getVisualBounds().getWidth();
+	public static final float HEIGHT = (float) Screen.getPrimary().getVisualBounds().getHeight();
+	public static final float CELLSIZE = 60;
 	
 	public static class Item {
 		
